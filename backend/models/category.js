@@ -15,10 +15,17 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     required: true, // Password is required
   },
+  programs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "program", // Assuming Program model is used for programs
+    },
+  ],
   Date: {
     type: Date,
     require: true,
   },
+  
 });
 
 const User = mongoose.model("Category", categorySchema);
