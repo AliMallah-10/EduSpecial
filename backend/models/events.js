@@ -1,20 +1,29 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const eventSchema = new mongoose.Schema({
+const eventsScehma = new Schema({
   name: {
     type: String,
     required: true,
+    maxlength: 255, // Adjust the maximum length as needed
   },
   description: {
     type: String,
     required: true,
+    maxlength: 1000, // Adjust the maximum length as needed
   },
-  date: {
+  eventDate: {
     type: Date,
     required: true,
+    validate: {
+      validator: function (value) {
+        // Ensure the date is in the future
+        return value > new Date();
+      },
+      message: "Event date must be in the future.",
+    },
   },
 });
 
-const Event = mongoose.model("Event", eventSchema);
-
-module.exports = Event;
+const Events = mongoose.model("Events", eventsScehma);
+module.exports = Events;

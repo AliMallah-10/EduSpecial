@@ -4,8 +4,16 @@ const userController = require("../controllers/usercontrollers");
 const userMiddleware = require("../middlewares/usermiddleware");
 
 // Public routes
-router.post("/register", userController.registerUser);
-router.post("/login", userController.loginUser);
+router.post(
+  "/register",
+  userMiddleware.validateRequiredFields,
+  userController.registerUser
+);
+router.post(
+  "/login",
+  userMiddleware.validateRequiredLogin,
+  userController.loginUser
+);
 
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
@@ -13,6 +21,7 @@ router.use(userMiddleware.verifyToken);
 router.get(
   "/getuserbyid/:id",
   userMiddleware.checkResourceOwnership,
+
   userController.getUserById
 );
 router.put(

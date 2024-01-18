@@ -12,6 +12,7 @@ router.post(
   programMiddleware.checkValidPrice,
   programMiddleware.checkCategoryExistence,
   programMiddleware.checkTalentExistence,
+  programMiddleware.validateRequiredFields,
   programController.addProgram
 );
 

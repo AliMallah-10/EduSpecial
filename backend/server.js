@@ -7,6 +7,10 @@ const dbConnect = require("./config/config");
 // Import user routes
 const userRoutes = require("./routes/userRoutes");
 const programRoutes = require("./routes/programRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const peopleRoutes = require("./routes/peopleRoutes");
+const eventsRoutes = require("./routes/eventsRoutes");
+const teamRoutes = require("./routes/teamRoutes");
 // Middleware
 app.use(
   cors({
@@ -20,6 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use user routes
 app.use("/users", userRoutes);
 app.use("/Programs", programRoutes);
+app.use("/category", categoryRoutes);
+app.use("/people", peopleRoutes);
+app.use("/events", eventsRoutes);
+app.use("/team", teamRoutes);
 // Access environment variables
 const port = process.env.PORT || 7000;
 

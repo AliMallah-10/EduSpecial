@@ -69,3 +69,23 @@ exports.checkResourceOwnership = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
+// Middleware to validate if all required fields are provided
+
+exports.validateRequiredFields = async (req, res, next) => {
+  const { role, firstname, lastname, password, bloodType, email } = req.body;
+
+  if (!role || !firstname || !lastname || !password || !bloodType || !email) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  next();
+};
+exports.validateRequiredLogin = async (req, res, next) => {
+  const { password, email } = req.body;
+
+  if (!password || !email) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  next();
+};

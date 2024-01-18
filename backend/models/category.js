@@ -13,19 +13,20 @@ const categorySchema = new mongoose.Schema({
   },
   count: {
     type: Number,
-    required: true, // Password is required
+    // default: 0,
+    // required: true, // Password is required
   },
-  programs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "program", // Assuming Program model is used for programs
-    },
-  ],
-  Date: {
+  eventDate: {
     type: Date,
-    require: true,
+    required: true,
+    validate: {
+      validator: function (value) {
+        // Ensure the date is in the future
+        return value > new Date();
+      },
+      message: "Event date must be in the future.",
+    },
   },
-  
 });
 
 const User = mongoose.model("Category", categorySchema);

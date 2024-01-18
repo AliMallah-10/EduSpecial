@@ -70,7 +70,6 @@ exports.checkTalentExistence = async (req, res, next) => {
   }
 };
 
-
 // Middleware to check if the updated program name is unique
 exports.checkUniqueUpdatedName = async (req, res, next) => {
   try {
@@ -90,4 +89,15 @@ exports.checkUniqueUpdatedName = async (req, res, next) => {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
+};
+// Middleware to validate if all required fields are provided
+
+exports.validateRequiredFields = async (req, res, next) => {
+  const { name, description, category, talent, price } = req.body;
+
+  if (!name || !description || !category || !talent || !price) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  next();
 };
