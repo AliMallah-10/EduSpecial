@@ -3,7 +3,7 @@ const People = require("../models/people");
 // Create a new person
 const createPerson = async (req, res) => {
   try {
-    const { name, age, gender, skills, phone, address, specialNeeds } =
+    const { name, age, gender, skills, phone,talent, address, specialNeeds } =
       req.body;
 
     const person = new People({
@@ -13,6 +13,7 @@ const createPerson = async (req, res) => {
       skills,
       phone,
       address,
+      talent,
       specialNeeds,
     });
 

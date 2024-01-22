@@ -11,12 +11,12 @@ const programSchema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
+    ref: "Category",
     required: true,
   },
   talent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user", // Assuming User model is used for talents
+    ref: "User", // Assuming User model is used for talents
     required: true,
   },
   price: {

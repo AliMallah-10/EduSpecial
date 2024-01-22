@@ -13,7 +13,7 @@ const donationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  eventDate: {
     type: Date,
     default: Date.now,
   },

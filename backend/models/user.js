@@ -11,12 +11,12 @@ const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
     required: true, // Username is required
-    unique: true, // Username should be unique
+    // Username should be unique
   },
   lastname: {
     type: String,
     required: true, // Username is required
-    unique: true, // Username should be unique
+    // Username should be unique
   },
   password: {
     type: String,
@@ -38,6 +38,13 @@ const userSchema = new mongoose.Schema({
       },
       message: "Invalid email format",
     },
+  },
+  loginAttempts: {
+    type: Number,
+    default: 0,
+  },
+  lastLoginAttempt: {
+    type: Date,
   },
 });
 

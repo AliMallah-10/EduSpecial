@@ -5,6 +5,7 @@ const teammiddlewares = require("../middlewares/teammiddleware");
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
+router.use(userMiddleware.checkAdminRole);
 // Route to create a new employee
 
 router.post(

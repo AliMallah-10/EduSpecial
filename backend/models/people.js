@@ -41,7 +41,22 @@ const peopleSchema = new Schema({
 
   specialNeeds: {
     type: String,
-    enum: ["none", "medical", "educational", "other"],
+    enum: [
+      "none",
+      "medical",
+      "educational",
+      "physical",
+      "behavioral",
+      "communication",
+      "sensory",
+      "other",
+    ],
+    required: true,
+  },
+
+  talent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Assuming User model is used for talents
     required: true,
   },
 });

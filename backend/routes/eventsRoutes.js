@@ -5,6 +5,7 @@ const eventsMiddleware = require("../middlewares/eventsMiddleware"); // Import t
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
+router.use(userMiddleware.checkAdminRole);
 // Route to create a new event
 router.post(
   "/addevent",
@@ -16,7 +17,7 @@ router.post(
 router.get("/getallevents", eventsController.getAllEvents);
 
 // Route to get an event by ID
-router.get("/getevent/:id", eventsController.getEventById);
+router.get("/getevent/:id",userMiddleware.checkAdminRole, eventsController.getEventById);
 
 // Route to update an event by ID
 router.put(
@@ -26,6 +27,6 @@ router.put(
 );
 
 // Route to delete an event by ID
-router.delete("/deleteevent/:id", eventsController.deleteEventById);
+router.delete("/deleteevent/:id",userMiddleware.checkAdminRole, eventsController.deleteEventById);
 
 module.exports = router;

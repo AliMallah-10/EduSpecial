@@ -5,6 +5,7 @@ const categoryMiddleware = require("../middlewares/categoryMiddleware"); // Impo
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
+router.use(userMiddleware.checkAdminRole);
 // Route to create a new category with validation middleware
 router.post(
   "/addcategory",

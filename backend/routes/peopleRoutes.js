@@ -13,7 +13,11 @@ router.post(
 );
 
 // Route to get all people
-router.get("/getpeople", peopleController.getAllPeople);
+router.get(
+  "/getpeople",
+  userMiddleware.checkAdminRole,
+  peopleController.getAllPeople
+);
 
 // Route to get a person by ID
 router.get("/getperson/:id", peopleController.getPersonById);
@@ -27,7 +31,15 @@ router.put(
 );
 
 // Route to delete a person by ID
-router.delete("/deleteperson/:id", peopleController.deletePersonById);
+router.delete(
+  "/deleteperson/:id",
+  userMiddleware.checkAdminRole,
+  peopleController.deletePersonById
+);
 // Route to delete a person by Name
-router.delete("/deletepersonsname/:name", peopleController.deletePersonByName);
+router.delete(
+  "/deletepersonsname/:name",
+  userMiddleware.checkAdminRole,
+  peopleController.deletePersonByName
+);
 module.exports = router;

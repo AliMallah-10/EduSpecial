@@ -5,6 +5,7 @@ const programMiddleware = require("../middlewares/programMiddleware");
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
+router.use(userMiddleware.checkAdminRole);
 // Public routes
 router.post(
   "/Addprogram",
