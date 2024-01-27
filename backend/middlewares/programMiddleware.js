@@ -96,7 +96,7 @@ exports.validateRequiredFields = async (req, res, next) => {
   const { name, description, category, talent, price } = req.body;
 
   if (!name || !description || !category || !talent || !price) {
-    return res.status(400).json({ error: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   next();

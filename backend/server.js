@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const dbConnect = require("./config/config");
+const path = require("path");
 
 // Import user routes
 const userRoutes = require("./routes/userRoutes");
@@ -21,6 +22,11 @@ app.use(
     credentials: true,
   })
 );
+// Set 'views' as the folder containing your views
+app.set("../backend/views", path.join(__dirname, "../backend/views"));
+
+// Set EJS as the view engine
+app.set("view engine", "ejs");
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());

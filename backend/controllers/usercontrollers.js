@@ -3,6 +3,302 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.SECRET_STRIPE_KEY);
+const { v4: uuidv4 } = require("uuid");
+const nodemailer = require("nodemailer");
+const UserVerification = require("../models/userVerification");
+const path = require("path");
+//===================== NodeMailer Starts =============================================================
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: "outlook",
+  auth: {
+    user: process.env.AUTH_EMAIL,
+    pass: process.env.AUTH_PASS,
+  },
+});
+
+// Verify transporter setup
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Ready for message");
+    console.log(success);
+  }
+});
+//===================== NodeMailer Ends ===============================================================
+
+//================= User Authentication and Verification  Starts ======================================
+// verify email
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.query;
+    console.log("Verification Token:", token);
+
+    // Find the user verification record by the token
+    const verificationRecord = await UserVerification.findOne({
+      uniqueString: token,
+    });
+
+    console.log("Verification Record:", verificationRecord);
+
+    if (!verificationRecord) {
+      // If no verification record is found, handle the error accordingly
+      console.log("Invalid verification token");
+      return res.status(400).json({ error: "Invalid verification token" });
+    }
+
+    // Update the user record to mark it as verified (you may have a "verified" field in your User model)
+    await User.findByIdAndUpdate(verificationRecord.userId, { verified: true });
+
+    console.log("User marked as verified");
+
+    // Optionally, you can remove the verification record from the database
+    await UserVerification.findByIdAndDelete(verificationRecord._id);
+
+    console.log("Verification record deleted");
+
+    // Respond with success message
+    res.json({ message: "Email verification successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+//  function to include token in the verification email
+exports.sendVerificationEmail = async (user, token) => {
+  const currentURL = "http://localhost:3000/";
+  const uniqueString = uuidv4() + user._id;
+
+  const mailOptions = {
+    from: process.env.AUTH_EMAIL,
+    to: user.email,
+    subject: "Verify Your Email",
+    html: `<p>Verify your email address to complete the signup and login into your account.</p><p>This link <b>expires in 6 hours</b>.</p><p>Press <a href=${
+      currentURL + "users/verify/" + user._id + "/" + uniqueString
+    }?token=${token}>here</a> to proceed.</p>`,
+  };
+
+  try {
+    const hashedUniqueString = await bcrypt.hash(uniqueString, 10);
+
+    await UserVerification.create({
+      userId: user._id,
+      uniqueString: hashedUniqueString,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 21600000,
+    });
+
+    await transporter.sendMail(mailOptions);
+
+    return {
+      status: "Pending",
+      message: "Verification Email Sent",
+      token, // Include the token in the response
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "FAILED",
+      message: "An error occurred while sending the verification email",
+    };
+  }
+};
+
+// Separate function for handling user verification
+exports.handleUserVerification = async (req, res) => {
+  const { userId, uniqueString } = req.params;
+
+  try {
+    const result = await UserVerification.find({ userId });
+
+    if (result.length > 0) {
+      const { expiresAt, uniqueString: hashedUniqueString } = result[0];
+
+      if (expiresAt < Date.now()) {
+        await UserVerification.deleteOne({ userId });
+        await User.deleteOne({ _id: userId });
+
+        return res
+          .status(400)
+          .json({ error: "The link has expired, please log in again" });
+      } else {
+        const isUniqueStringValid = await bcrypt.compare(
+          uniqueString,
+          hashedUniqueString
+        );
+
+        if (isUniqueStringValid) {
+          await User.updateOne({ _id: userId }, { verified: true });
+          await UserVerification.deleteOne({ userId });
+
+          // Send the HTML response
+          return res.sendFile(path.join(__dirname, "../views/verified.html"));
+        } else {
+          return res.status(400).json({
+            error: "Invalid verification details passed. Check your inbox",
+          });
+        }
+      }
+    } else {
+      return res.status(400).json({
+        error:
+          "Account record doesn't exist or has been verified already. Please sign up or log in",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error:
+        "An error occurred while checking for an existing user verification record",
+    });
+  }
+};
+
+// Separate function for handling the /verified route
+exports.showVerifiedPage = (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/verified.html"));
+};
+
+//================= User Authentication and Verification  Ends ======================================
+
+//============================= Password Management Starts =============================================
+
+// Function to send reset password email
+exports.sendResetPasswordEmail = async (user, Token) => {
+  const currentURL = "http://localhost:3001";
+  const uniqueString = uuidv4() + user._id;
+
+  try {
+    // Hash the uniqueString before storing it
+    const hashedUniqueString = await bcrypt.hash(uniqueString, 10);
+
+    await UserVerification.create({
+      userId: user._id,
+      uniqueString: hashedUniqueString, // Save the hashed uniqueString
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 21600000,
+    });
+
+    const resetToken = uuidv4(); // Generate a new reset token
+    user.resetToken = resetToken;
+    user.resetTokenExpires = Date.now() + 3600000; // 1 hour expiration
+
+    await user.save();
+
+    const mailOptions = {
+      from: process.env.AUTH_EMAIL,
+      to: user.email,
+      subject: "Password Reset Request",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <h2 style="color: #333; text-align: center;">Password Reset Request</h2>
+          <p style="color: #555;">Hello ${user.firstname},</p>
+          <p style="color: #555;">You've requested to reset your password. Please click the link below to proceed:</p>
+          <p style="color: #555; margin-bottom: 20px;"><a href="${currentURL}/reset-password/${user._id}/${resetToken}" style="color: #007BFF; text-decoration: none;">Reset Your Password</a></p>
+          <p style="color: #555;">If you didn't request a password reset, you can safely ignore this email. The link is valid for 1 hour.</p>
+          <p style="color: #555;">Best regards,<br>Your EDUSpecial Team</p>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return {
+      status: "Pending",
+      message: "Reset Password Email Sent",
+      token: resetToken,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "FAILED",
+      message: "An error occurred while sending the reset password email",
+    };
+  }
+};
+// Function to handle forget password
+exports.forgetPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate a reset token
+    const resetToken = uuidv4();
+    user.resetToken = resetToken;
+    user.resetTokenExpires = Date.now() + 3600000; // 1 hour expiration
+
+    await user.save();
+
+    // Send reset password email
+    const result = await exports.sendResetPasswordEmail(user, resetToken);
+
+    res.json({
+      message:
+        "Password reset request has been successfully sent. Check your email.",
+      result,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+// Function to handle reset password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { userId, token } = req.params;
+    const { password, confirmPassword } = req.body;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords do not match" });
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if the reset token matches
+    if (user.resetToken !== token) {
+      return res.status(400).json({ error: "Invalid reset token" });
+    }
+
+    // Check if the reset token has expired
+    if (user.resetTokenExpires < Date.now()) {
+      return res.status(400).json({ error: "Reset token has expired" });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Update user's password and reset token fields
+    user.password = hashedPassword;
+    user.resetToken = null;
+    user.resetTokenExpires = null;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//============================== Password Management Ends ==============================================
 // Function to register a new user
 exports.registerUser = async (req, res) => {
   try {
@@ -17,9 +313,10 @@ exports.registerUser = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+    // Set default role (e.g., "user")
+    const defaultRole = "user";
     const newUser = new User({
-      role,
+      role: defaultRole,
       firstname,
       lastname,
       password: hashedPassword,
@@ -107,7 +404,7 @@ exports.refreshToken = async (req, res) => {
   }
 };
 //todo time for incorrect login --------------------
-const MAX_LOGIN_ATTEMPTS = 3;
+const MAX_LOGIN_ATTEMPTS = 20;
 const LOCKOUT_TIME_SHORT = 1 * 60 * 1000; // 1 minute
 const LOCKOUT_TIME_LONG = 60 * 60 * 1000; // 1 hour
 
@@ -224,23 +521,32 @@ const invalidatedRefreshTokens = [];
 // Function to handle user logout
 exports.logoutUser = async (req, res) => {
   try {
-    // Clear any existing tokens on the client-side (cookies, localStorage, etc.)
-    // Clear cookies in the response
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-    // Get the refresh token from the request header
+    // Get the access token from the request headers
+    const accessTokenHeader = req.header("Authorization");
+    const accessToken = accessTokenHeader
+      ? accessTokenHeader.replace("Bearer ", "")
+      : null;
+
+    // Optionally, you can also get the refresh token if needed
     const refreshTokenHeader = req.header("refreshauth");
     const refreshToken = refreshTokenHeader
       ? refreshTokenHeader.replace("Bearer ", "")
       : null;
 
-    // Check if the refresh token is in the list of invalidated tokens
-    if (refreshToken && invalidatedRefreshTokens.includes(refreshToken)) {
-      return res.status(401).json({ error: "Invalid refresh token" });
-    }
+    // Your logic to handle the tokens (e.g., invalidate them)
 
-    // Add the refresh token to the list of invalidated tokens
-    invalidatedRefreshTokens.push(refreshToken);
+    // Clear any existing tokens on the client-side (cookies, localStorage, etc.)
+    // Clear cookies in the response
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    // Optionally, you can also add the tokens to the list of invalidated tokens
+    if (accessToken && !invalidatedRefreshTokens.includes(accessToken)) {
+      invalidatedRefreshTokens.push(accessToken);
+    }
+    if (refreshToken && !invalidatedRefreshTokens.includes(refreshToken)) {
+      invalidatedRefreshTokens.push(refreshToken);
+    }
 
     // Respond with a success message
     res.status(200).json({ message: "Logout successful" });
@@ -249,6 +555,7 @@ exports.logoutUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // Function to get user by ID
 exports.getUserById = async (req, res) => {
   try {
@@ -445,3 +752,4 @@ exports.getUserByFirstname = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+//============================= User CRUD Operations Ends =============================================

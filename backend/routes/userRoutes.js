@@ -2,11 +2,14 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/usercontrollers");
 const userMiddleware = require("../middlewares/usermiddleware");
+const path = require("path");
+const ejs = require("ejs");
 
 // Public routes
 router.post(
   "/register",
   userMiddleware.validateRequiredFields,
+  userMiddleware.validatePasswordMatch,
   userController.registerUser
 );
 router.post(
@@ -15,6 +18,35 @@ router.post(
   userController.loginUser
 );
 router.post("/refresh-token", userController.refreshToken);
+// Forget Password Routes
+router.post("/forget-password", userController.forgetPassword);
+
+// Reset Password Routes
+// This route renders the password reset form
+router.get("/reset-password/:userId/:token", (req, res) => {
+  const userId = req.params.userId;
+  const token = req.params.token;
+
+  ejs.renderFile(
+    path.join(__dirname, "../views/reset-password.html"),
+    { userId, token },
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send(data);
+      }
+    }
+  );
+});
+
+// This route handles the password reset form submission
+router.post(
+  "/reset-password/:userId/:token",
+  userMiddleware.validateResetPassword,
+  userController.resetPassword
+);
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
 // Logout route
@@ -63,5 +95,16 @@ router.get(
   userController.getUserByFirstname
 );
 router.post("/checkout", userController.Payments);
+// User Verification Routes
+router.get(
+  "/verify/:userId/:uniqueString",
+  userMiddleware.validateUserVerification,
+  userController.handleUserVerification
+);
+router.get(
+  "/verified",
+  userMiddleware.validateShowVerifiedPage,
+  userController.showVerifiedPage
+);
 
 module.exports = router;

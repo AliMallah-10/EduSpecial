@@ -1,24 +1,33 @@
-import logo from './world-earth-removebg-preview.png';
-import './App.css';
+import React from "react";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import SignIN from "./Pages/SignIN";
+import SignUP from "./Pages/SignUP";
+import DashAdmin from "./Pages/DashAdmin";
+import ResetPassword from "./Pages/ResetPassword";
+import VerifPage from "./Pages/VerifPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Route for SignIN component */}
+        <Route path="/signin" element={<SignIN />} />
+        {/* Route for SignIN component */}
+        <Route
+          path="/reset-password/:userId/:token"
+          element={<ResetPassword />}
+        />
+
+        {/* Route for SignIN component */}
+        <Route path="/emailVerify" element={<VerifPage />} />
+        {/* Route for SignUP component */}
+        <Route path="/signup" element={<SignUP />} />
+        {/* Route for DashAdmin component */}
+        <Route path="/AdminDash" element={<DashAdmin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
