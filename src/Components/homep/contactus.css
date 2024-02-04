@@ -1,0 +1,305 @@
+/*====================================================================================*/
+/* contact us form  */
+/*=======================================================================================*/
+#contactUs {
+    display: flex;
+    flex-direction: row; /* Change flex-direction to row */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Adjust spacing between the left and right side */
+    height: 100%;
+    margin: 20px 20px 0 20px; /* top, right, bottom, left */
+  }
+  
+  .left-side-form {
+    flex: 1; /* Take up remaining space */
+  }
+  
+  
+  #emiter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Center the emitter content */
+  }
+  
+  .contactus-form {
+    padding: 4%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 4px solid #fff;
+    background: rgba(0, 255, 240, 0.52);
+    box-shadow: 0px 0px 64px 0px #82e1ff inset, 0px 0px 16px #a8fffaa6;
+    backdrop-filter: blur(3.5px);
+    gap: 1em;
+    animation: float 2s ease-in-out infinite;
+  }
+  
+  #rays {
+    z-index: 2;
+    position: relative;
+    bottom: -1.5em;
+    animation: rays 2s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+  
+  }
+  
+  #login-lable {
+    text-align: center;
+    color: goldenrod;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 8px;
+    text-shadow: 0px 0px 16px rgb(243, 243, 243);
+  }
+  
+  .contact-form-content {
+    height: 3em;
+    padding: 1px 8px;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    background: rgba(139, 255, 247, 0.486);
+    box-shadow: 0px 0px 1px 3px #9ee5e3 inset, 0px 4px 4px 0px #181a6040;
+    text-shadow: 0px 1px 4px rgb(243, 243, 243);
+  }
+  
+  .contact-form-content:focus-visible {
+    /* color: goldenrod; */
+    outline: none;
+    text-decoration: none;
+    background: rgba(139, 189, 255, 0.59);
+    box-shadow: 0px 0px 1px 4px #9ee5e3;
+  }
+  
+  .contact-form-content:hover {
+    background: rgba(139, 189, 255, 0.59);
+  }
+  
+  ::placeholder {
+    font-weight: 300;
+    color: goldenrod;
+    letter-spacing: 0.1rem;
+    text-shadow: 0px 1px 5px rgb(66, 66, 66);
+  }
+  
+  /* button section  */
+  .left-side-form .contactus-form .contactus-buttons {
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+    margin: auto;
+    padding: 7px;
+    width: 150px;
+  }
+  
+  .left-side-form .contactus-form .contactus-buttons button {
+    position: relative;
+  overflow: hidden;
+    background-color: goldenrod;
+    font-family: inherit;
+    font-size: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    align-items: center;
+    margin-left: 29%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+  }
+  
+  .left-side-form .contactus-form .contactus-buttons button a {
+    text-decoration: none;
+    color: #162c5a;
+    font-weight: normal;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+  /* to make the a white after i hover on it */
+  .left-side-form .contactus-form .contactus-buttons button:hover a {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .left-side-form .contactus-form .contactus-buttons button:before {
+    content: ""; /* Create a pseudo-element */
+    position: absolute; /* Position it absolutely */
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #162c5a;
+    transition: width 0.3s ease;
+    z-index: 0;
+  }
+  
+  .left-side-form .contactus-form .contactus-buttons button:hover:before {
+    width: 100%; /* Increase the width to 100% on hover */
+  
+  }
+  
+  @keyframes float {
+    0% {
+        position: relative;
+    }
+  
+    50% {
+        top: 50px;
+    }
+  
+    100% {
+        position: relative;
+    }
+  }
+  
+  @keyframes rays {
+    0% {
+        opacity: 0.6;
+    }
+  
+    50% {
+        opacity: 1;
+    }
+  
+    100% {
+        opacity: 0.6;
+    }
+  }
+  
+  /*===============================================================================*/
+  /* right side section starts  */
+  /*================================================================================*/
+  .right-side-form {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #eeeeee;
+  }
+  
+  .right-side-form img {
+    width: 193px; /* Adjust image width as needed */
+    height: 195px; /* Maintain aspect ratio */
+  }
+  
+  .right-side-form .right-amount {
+    padding: 20px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    background-color: white;
+  }
+  
+  .right-side-form .right-amount i{
+    margin-right: 3px;
+    color: #fcb900;
+    font-size: 25px;
+  }
+  
+  .right-side-form .right-amount h1 {
+    font-size: 30px;
+    color: #43cec6;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .right-side-form .right-amount p {
+    text-align: center;
+    color: #a1a1a1;
+    text-rendering: optimizeLegibility;
+    font-family: nunito, sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  /* Change color to gold on hover for <p> inside .company-phone */
+  .company-phone p:hover {
+    color: gold;
+  }
+  
+  /* Change color to #162c5a on hover for <p> inside .company-email */
+  .company-email p:hover {
+    color: #162c5a;
+  }
+  
+  
+  /*===============================================================================*/
+  /* right side section ends  */
+  /*================================================================================*/
+  
+  
+  
+  
+  
+  
+  /*=================================================*/
+  /* Map section  */
+  /*=================================================*/
+  
+  
+  .map {
+  
+   width: 100%;
+   margin: 0 20px 20px 20px; /* top, right, bottom, left */
+    
+  }
+  
+  .map-pic {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .map-pic iframe {
+    width: 97%;
+    height: 480px;
+    border: 0;
+  }
+  
+  .map-hover {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    background-color: rgba(255, 255, 255, 0.9); /* Adjust as needed */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adjust as needed */
+  }
+  
+  .map-hover-inner {
+    padding: 5px;
+  }
+  
+  .map-hover-inner h5 {
+    margin: 0;
+  }
+  
+  .map-hover-inner p {
+    margin: 5px 0;
+  }
+  
+  .fa-map-marker {
+    color: #f00; /* Adjust as needed */
+    font-size: 20px;
+  }
+  
+  
+  
+  
+  

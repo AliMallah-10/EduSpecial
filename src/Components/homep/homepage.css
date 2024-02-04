@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+.homepage{
+  background-color: white;
+  margin: 0;
+  padding: 0%;
+
+}
+/*========================================================================
+                            Slider for images starts
+=========================================================================*/
+/* Slider container */
+/* Slider container */
+.slider {
+  position: relative;
+  width: 90%;
+  height: 400px; /* Adjust height as needed */
+  overflow: hidden;
+  margin: 20px 20px 0 20px; /* top, right, bottom, left */
+}
+
+/* Individual slide */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Hide slides by default */
+  transition: opacity 0.5s ease; /* Add transition effect */
+}
+
+/* Make the active slide visible */
+.slide.active {
+  opacity: 1;
+}
+
+/* Image within the slide */
+.image {
+  width: 100%; /* Ensure image fills the slide */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Text within the slide */
+.text {
+  position: absolute;
+  top: 50%; /* Adjust as needed */
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center; /* Center align the text */
+  font-size: 24px; /* Text size */
+  font-weight: bold; /* Text weight */
+  opacity: 1; /* Show the text by default */
+  z-index: 1; /* Ensure text is above the image */
+  color: transparent; /* Make text transparent initially */
+}
+
+/* Text color based on class */
+.mixed-color {
+  color: transparent;
+    background-image: linear-gradient(to right, gold, #162c5a, #43cec6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Class to control text animation */
+.text.reveal {
+  animation-name: revealText;
+  animation-duration: 15s; /* Animation duration */
+}
+
+@keyframes revealText {
+  from {
+    opacity: 0; /* Start with opacity 0 */
+  }
+  to {
+    opacity: 1; /* Gradually reveal text with opacity 1 */
+  }
+}
+
+/*========================================================================
+                            Slider for images ends
+=========================================================================*/
+
+/* for volunteer class  */
+/* animations for words "can" and "different" */
+@keyframes vibrate-up-down {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(5px); }
+}
+
+.animate-vibrate-up-down {
+  animation: vibrate-up-down 1s infinite;
+}
+

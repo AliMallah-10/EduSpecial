@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.body-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url("../../Assets/images/signupBack.jpg") no-repeat !important;
+  background-size: cover;
+  background-position: center;
+}
+
+/* @media (max-width: 576px) {
+  .input-box .input-field {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+#messageSignUP {
+  color: rgb(45, 136, 131);
+}  */

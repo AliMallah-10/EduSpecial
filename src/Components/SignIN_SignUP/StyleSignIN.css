@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body-signin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../../Assets/images/signupBack.jpg") no-repeat !important;
+    background-size: cover;
+    background-position: center;
+  }

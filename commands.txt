@@ -1,0 +1,34 @@
+npx create-react-app frontend
+npm install react-router-dom
+
+# Free icons styles
+
+#first
+
+npm i --save @fortawesome/fontawesome-svg-core
+
+#Second
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+npm install axios
+
+npm install antd@^5.13.2 react-scripts@5.0.1 web-vitals@^2.1.4
+
+#news commands 
+
+npm run start  
+npm install react-slick slick-carousel
+
+ npm install react-owl-carousel owl.carousel
+
+# install tailwind , then install daisyui
+npm install -D tailwindcss
+npx tailwindcss init
+npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+npm i daisyui react-daisyui
+
+# for dashboard
+npm install postcss-nesting --save-dev
+
