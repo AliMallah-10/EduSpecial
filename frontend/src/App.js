@@ -7,7 +7,10 @@ import SignUP from "./Pages/SignUP";
 import DashAdmin from "./Pages/DashAdmin";
 import ResetPassword from "./Pages/ResetPassword";
 import VerifPage from "./Pages/VerifPage";
-
+import MainPage from "./Pages/dashboard_Pages/MainPage";
+import UsersPage from "./Pages/dashboard_Pages/UsersPage";
+import ProfilePage from "./Pages/dashboard_Pages/ProfilePage";
+import ProgramPage from "./Pages/dashboard_Pages/ProgramNamePage";
 function App() {
   return (
     <BrowserRouter>
@@ -25,7 +28,12 @@ function App() {
         {/* Route for SignUP component */}
         <Route path="/signup" element={<SignUP />} />
         {/* Route for DashAdmin component */}
-        <Route path="/AdminDash" element={<DashAdmin />} />
+        <Route path="AdminDash" element={<DashAdmin />}>
+          <Route path="mainPage" element={<MainPage />} />
+          <Route path="userPage" element={<UsersPage />} />
+          <Route path="profilePage" element={<ProfilePage />} />
+          <Route path="programPage" element={<ProgramPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

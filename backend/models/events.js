@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const eventsScehma = new Schema({
-  name: {
+  imageevents: {
+    type: String,
+    required: true,
+  },
+  nameevents: {
     type: String,
     required: true,
     maxlength: 255, // Adjust the maximum length as needed

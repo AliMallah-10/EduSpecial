@@ -41,6 +41,7 @@ app.use("/events", eventsRoutes);
 app.use("/team", teamRoutes);
 app.use("/donate", donation);
 app.use("/registerProgam", registerProg);
+app.use('/uploads', express.static('uploads'));
 
 // Access environment variables
 const port = process.env.PORT || 7000;

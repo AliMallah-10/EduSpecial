@@ -27,6 +27,9 @@ const programSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  image: {
+    type: String, // Store the file path or URL
+  },
 });
 
 const Service = mongoose.model("Program", programSchema);

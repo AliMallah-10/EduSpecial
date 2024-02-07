@@ -57,109 +57,110 @@ function Sign_UP() {
         // Set a timer to clear the message after 3 seconds
         setTimeout(() => setMessage(""), 3000);
       }
-      
     }
   };
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleSignUp}>
-        <h1>Sign UP</h1>
-        <div className="input-box">
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="First Name"
-              required
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <i>
-              <FontAwesomeIcon icon={faUser} />
-            </i>
+    <body className="bodySignup">
+      <div className="wrapper">
+        <form onSubmit={handleSignUp}>
+          <h1>Sign UP</h1>
+          <div className="input-box">
+            <div className="input-field">
+              <input
+                type="text"
+                placeholder="First Name"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <i>
+                <FontAwesomeIcon icon={faUser} />
+              </i>
+            </div>
+            <div className="input-field">
+              <input
+                type="text"
+                placeholder="Last Name"
+                required
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <i>
+                <FontAwesomeIcon icon={faUser} />
+              </i>
+            </div>
           </div>
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="Last Name"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <i>
-              <FontAwesomeIcon icon={faUser} />
-            </i>
+          <div className="input-box">
+            <div className="input-field">
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <i>
+                <FontAwesomeIcon icon={faEnvelope} />
+              </i>
+            </div>
+            <div className="input-field">
+              <select
+                name="blood"
+                id="bloodst"
+                onChange={(e) => setBloodType(e.target.value)}
+              >
+                <option value="">Choose Blood Type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+              <i>
+                <FontAwesomeIcon icon={faHandHoldingDroplet} />
+              </i>
+            </div>
           </div>
-        </div>
-        <div className="input-box">
-          <div className="input-field">
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <i>
-              <FontAwesomeIcon icon={faEnvelope} />
-            </i>
+          <div className="input-box">
+            <div className="input-field">
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <i>
+                <FontAwesomeIcon icon={faLock} />
+              </i>
+            </div>
+            <div className="input-field">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <i>
+                <FontAwesomeIcon icon={faLock} />
+              </i>
+            </div>
           </div>
-          <div className="input-field">
-            <select
-              name="blood"
-              id="bloodst"
-              onChange={(e) => setBloodType(e.target.value)}
-            >
-              <option value="">Choose Blood Type</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-            <i>
-              <FontAwesomeIcon icon={faHandHoldingDroplet} />
-            </i>
-          </div>
-        </div>
-        <div className="input-box">
-          <div className="input-field">
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <i>
-              <FontAwesomeIcon icon={faLock} />
-            </i>
-          </div>
-          <div className="input-field">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              required
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <i>
-              <FontAwesomeIcon icon={faLock} />
-            </i>
-          </div>
-        </div>
-        <p id="messageSignUP">{messages}</p>
-        <button type="submit" className="btnR">
-          Register
-        </button>
-        <label htmlFor="">
-          <p>
-            Already have an account?
-            <Link to="/signin" className="link">
-              Go to Login
-            </Link>
-          </p>
-        </label>
-      </form>
-    </div>
+          <p id="messageSignUP">{messages}</p>
+          <button type="submit" className="btnR">
+            Register
+          </button>
+          <label htmlFor="">
+            <p>
+              Already have an account?
+              <Link to="/signin" className="link">
+                Go to Login
+              </Link>
+            </p>
+          </label>
+        </form>
+      </div>
+    </body>
   );
 }
 

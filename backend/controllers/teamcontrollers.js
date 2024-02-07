@@ -1,18 +1,45 @@
 const Employee = require("../models/team");
+const multer = require("multer");
+// Multer configuration
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname +
+        "-" +
+        uniqueSuffix +
+        "." +
+        file.originalname.split(".").pop()
+    );
+  },
+});
 
+// Upload middleware
+const upload = multer({ storage: storage }).single("image");
 // Controller function to create a new employee
 const createEmployee = async (req, res) => {
   try {
-    const { name, image, position } = req.body;
+    upload(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
 
-    const newEmployee = new Employee({
-      name,
-      image,
-      position,
+      const { name, position } = req.body;
+      const image = req.file.filename;
+
+      const newEmployee = new Employee({
+        name,
+        position,
+        image,
+      });
+
+      await newEmployee.save();
+      res.json({ message: "Created successfully" });
     });
-
-    await newEmployee.save();
-    res.json({ message: "Cretaed successfully" });
   } catch (error) {
     console.error("Error creating employee:", error);
     res.status(500).send("Internal Server Error");
@@ -22,24 +49,38 @@ const createEmployee = async (req, res) => {
 // Controller function to update an existing employee
 const updateEmployee = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, image, position } = req.body;
+    // Call the upload middleware to handle the image upload
+    upload(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
 
-    // Check if the employee with the provided id exists
-    const existingEmployee = await Employee.findById(id);
+      const { id } = req.params;
+      const { name, position } = req.body;
 
-    if (!existingEmployee) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
+      // Check if the employee with the provided id exists
+      const existingEmployee = await Employee.findById(id);
 
-    // Update the employee
-    const updatedEmployee = await Employee.findByIdAndUpdate(
-      id,
-      { name, image, position },
-      { new: true }
-    );
+      if (!existingEmployee) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
 
-    res.json({ message: "Updated successfully" });
+      // Update the employee
+      const updateFields = { name, position };
+
+      // If there is a new file, update the image field
+      if (req.file) {
+        updateFields.image = req.file.filename;
+      }
+
+      const updatedEmployee = await Employee.findByIdAndUpdate(
+        id,
+        updateFields,
+        { new: true }
+      );
+
+      res.json({ message: "Updated successfully" });
+    });
   } catch (error) {
     console.error("Error updating employee:", error);
     res.status(500).send("Internal Server Error");

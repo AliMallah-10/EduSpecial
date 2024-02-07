@@ -1,0 +1,314 @@
+:root {
+  --main-bg-color: rgba(68, 65, 65, 0.1);
+  --border-colorgray: rgba(105, 105, 105, 0.788);
+  --box-shadow-color: rgba(0, 0, 0, 0.795);
+  --text-color: white;
+  --button-bg-color22-green: rgb(55, 182, 123);
+  --button-bg-color11-green: rgb(2, 235, 126);
+  --link-color11-green: rgba(0, 151, 13, 0.89);
+  --link-color22-green: rgba(0, 85, 7, 0.89);
+  --link-hover1-blue: rgba(0, 238, 255, 0.89);
+  --link-hover2-blue: rgba(0, 152, 163, 0.89);
+  --body-color-blue: rgb(45, 136, 131);
+  --complement-yellow: rgb(255, 173, 51); /* Extra colors if need */
+  --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
+  --accent-color: rgb(214, 68, 98); /* Extra colors if need */
+}
+.buttonAddUser {
+  --main-focus: #2d8cf0;
+  --font-color: #dedede;
+  --bg-color-sub: #222;
+  --bg-color: #323232;
+  --main-color: #dedede;
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--button-bg-color22-green);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.buttonAddUser,
+.button__icon,
+.button__text {
+  transition: all 0.3s;
+}
+
+.buttonAddUser .button__text {
+  transform: translateX(25px);
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.buttonAddUser .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: var(--button-bg-color11-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.buttonAddUser:hover {
+  background: var(--bg-color);
+}
+
+.buttonAddUser:hover .button__text {
+  color: transparent;
+}
+
+.buttonAddUser:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+.Updatebtn {
+  padding: 8px;
+  border: 2px solid var(--body-color-blue);
+  border-radius: 50%;
+  background-color: var(--link-color11-green);
+  cursor: pointer;
+  margin-right: 8px;
+}
+.Updatebtn:hover {
+  background-color: var(--link-color12-yellow);
+  border: 3px solid var(--body-color-blue);
+  transform: scale(1.1);
+}
+.DeleteBtn {
+  padding: 8px;
+  border: 2px solid var(--body-color-blue);
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  cursor: pointer;
+  margin-right: 8px;
+  align-items: center;
+  text-align: center;
+}
+.DeleteBtn:hover {
+  background-color: var(--link-color12-yellow);
+  border: 3px solid var(--box-shadow-color);
+  transform: scale(1.1);
+}
+/* ! inputs add form --------------------------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 750px;
+  background-color: var(--button-bg-color22-green);
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 28px;
+  color: var(--text-color);
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: var(--button-bg-color11-green);
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: var(--link-color11-green);
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message,
+.signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.fexIn {
+  display: flex !important;
+  width: 100% !important;
+
+  gap: 6px;
+}
+.fexIn label {
+  width: 100% !important;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .input:valid + span {
+  color: green;
+}
+label select {
+  border: solid 3px #00ff55;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #f5f5f5;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 210px !important;
+}
+label select option {
+  background-color: var(--link-hover2-blue);
+}
+label select option:checked {
+  background-color: var(--link-hover1-blue);
+}
+.submit,
+.Cancelbtn {
+  border: none;
+  outline: none;
+  background-color: var(--link-color11-green);
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  padding: 12px;
+  margin-right: 10px;
+}
+.Cancelbtn {
+  background-color: var(--accent-color);
+}
+.submit:hover {
+  background-color: var();
+}
+.messageadduser {
+  text-align: center;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+/* ! delete form-------------------------------- */
+/* The Modal (background) */
+.modalC {
+  position: fixed; /* Stay in place */
+  z-index: 99999; /* Sit on top */
+  left: 0;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  padding-top: 60px;
+  text-align: center;
+}
+
+/* Modal Content/Box */
+.modal-contentC {
+  background-color: var(--text-color);
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 2px solid var(--accent-color);
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-radius: 30px;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.confD {
+  margin: 20px;
+}
+.confD i {
+  color: var(--accent-color);
+  font-size: 35px;
+  /* margin: 10px !important; */
+}
+.confD p {
+  font-size: 20px;
+  margin: 20px;
+}
+.confD button:hover {
+  border: 2px solid black;
+}
+/* todo end delete form-------------------------------- */

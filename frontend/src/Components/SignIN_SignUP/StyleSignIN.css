@@ -20,7 +20,16 @@
   --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
   --accent-color: rgb(214, 68, 98); /* Extra colors if need */
 }
-body {
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url("../../Assets/images/signupBack.jpg") no-repeat !important;
+  background-size: cover;
+  background-position: center;
+} */
+.bodySign{
   display: flex;
   justify-content: center;
   align-items: center;

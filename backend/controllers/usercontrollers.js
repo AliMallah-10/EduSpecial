@@ -370,7 +370,7 @@ exports.Payments = async (req, res) => {
 exports.refreshToken = async (req, res) => {
   try {
     // Extract refresh token from the Authorization header
-    const refreshTokenHeader = req.header("refreshauth");
+    const refreshTokenHeader = req.header("Authorization");
 
     if (invalidatedRefreshTokens.includes(refreshTokenHeader)) {
       return res.status(401).json({ error: "Invalid refresh token" });
@@ -390,19 +390,35 @@ exports.refreshToken = async (req, res) => {
     );
     const userId = decodedRefreshToken.id;
 
+    // Check if the refresh token is expired
+    if (decodedRefreshToken.exp < Date.now() / 1000) {
+      return res.status(401).json({ error: "Refresh token has expired" });
+    }
+
     // Generate a new access token
     const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-      expiresIn: "3 minute",
+      expiresIn: "3 minutes",
     });
+
+    // Generate a new refresh token (optional, if you want to rotate refresh tokens)
+    const newRefreshToken = jwt.sign(
+      { id: userId },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "7 days", // Choose an appropriate expiration time
+      }
+    );
 
     res.status(200).json({
       accessToken: newAccessToken,
+      refreshToken: newRefreshToken, // Include the new refresh token in the response
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
 //todo time for incorrect login --------------------
 const MAX_LOGIN_ATTEMPTS = 20;
 const LOCKOUT_TIME_SHORT = 1 * 60 * 1000; // 1 minute
@@ -487,9 +503,16 @@ exports.loginUser = async (req, res) => {
     );
 
     // Set cookies in the response
-    res.cookie("accessToken", accessToken, { httpOnly: true });
-    res.cookie("refreshToken", refreshToken, { httpOnly: true });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "Lax", // Adjust as needed
+    });
 
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "Lax", // Adjust as needed
+    });
+    res.header("Authorization", "Bearer " + accessToken);
     res.status(200).json({
       message: "Login successfully",
       accessToken,

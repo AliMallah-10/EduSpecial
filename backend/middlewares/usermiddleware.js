@@ -4,16 +4,23 @@ const Joi = require("joi");
 const { validationResult } = require("express-validator");
 // Middleware to verify the JWT token
 exports.verifyToken = (req, res, next) => {
-  const token = req.header("Authorization");
+  const authorizationHeader = req.header("Authorization");
 
   // Exclude token verification for registration route and refresh token route
-  if (req.path === "/register" ) {
+  if (req.path === "/register") {
     return next();
   }
-  if (!token) {
+
+  if (!authorizationHeader) {
     return res
       .status(401)
       .json({ message: "Access denied. Token not provided" });
+  }
+
+  // Check if the header starts with "Bearer "
+  const [scheme, token] = authorizationHeader.split(" ");
+  if (!token || scheme !== "Bearer") {
+    return res.status(401).json({ message: "Invalid token format" });
   }
 
   try {

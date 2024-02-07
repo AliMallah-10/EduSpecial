@@ -1,0 +1,149 @@
+:root {
+  --main-bg-color: rgba(68, 65, 65, 0.1);
+  --border-colorgray: rgba(105, 105, 105, 0.788);
+  --box-shadow-color: rgba(0, 0, 0, 0.2);
+  --text-color: white;
+  --button-bg-color22-green: rgb(55, 182, 123);
+  --button-bg-color11-green: rgb(2, 235, 126);
+  --link-color11-green: rgba(0, 151, 13, 0.89);
+  --link-color22-green: rgba(0, 85, 7, 0.89);
+  --link-hover1-blue: rgba(0, 238, 255, 0.89);
+  --link-hover2-blue: rgba(0, 152, 163, 0.89);
+  --body-color-blue: rgb(45, 136, 131);
+  --complement-yellow: rgb(255, 173, 51); /* Extra colors if need */
+  --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
+  --accent-color: rgb(214, 68, 98); /* Extra colors if need */
+}
+
+.contadd {
+  padding: 16px;
+  /* background-color: rgba(0, 85, 7, 0.89); */
+  width: auto;
+  margin: 15px;
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 99999; /* Sit on top */
+  left: 0;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: rgba(0, 85, 7, 0.89);
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid rgb(2, 235, 126);
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-radius: 30px;
+  text-align: center;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+.form-row {
+  width: auto;
+  margin: auto;
+  /* background-color: #ff0000; */
+}
+
+#teamedit .form-row input {
+  width: 100% !important;
+  padding: 12px 20px;
+  margin: 8px 5px;
+  display: inline-block;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 700;
+  background-color: var(--link-hover2-blue);
+}
+#eventedit .form-row input,
+textarea {
+  width: 100% !important;
+  padding: 12px 20px;
+  margin: 8px 5px;
+  display: inline-block;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 700;
+  background-color: var(--link-hover2-blue);
+}
+#eventedit .form-row textarea {
+  min-height: 100px;
+  max-height: 200px;
+}
+.imgcontainer h1 {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  color: white;
+}
+.sub-button {
+  text-align: center;
+}
+.contadd .sub-button input[type="submit"] {
+  margin-top: 20px;
+  padding: 14px;
+  border: 2px solid var(--link-hover2-blue);
+  border-radius: 10px;
+  background-color: var(--link-color22-green);
+  font-size: 15px;
+  font-weight: 500;
+}
+.contadd .sub-button input[type="submit"]:hover {
+  color: var(--text-color);
+  border: 2px solid var(--link-color11-green);
+  background-color: var(--body-color-blue);
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+.input-container {
+  position: relative;
+  width: 80%;
+  margin: auto;
+}

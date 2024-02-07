@@ -2,24 +2,24 @@ const Employee = require("../models/team");
 
 // Middleware to validate if all required fields are provided
 const validateRequiredFields = (req, res, next) => {
-  const { name, image, position } = req.body;
+  const { name, position } = req.body;
 
-  if (!name || !image || !position) {
+  if (!name || !position) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   next();
 };
 
-// Middleware to validate if the name already exists
+// Middleware function to validate if the name already exists
 const validateNameExists = async (req, res, next) => {
   const { name } = req.body;
 
   try {
     const existingEmployee = await Employee.findOne({ name });
 
-    // If updating and the name exists for a different employee, return an error
-    if (existingEmployee && existingEmployee._id.toString() !== req.params.id) {
+    // If an employee with the same name exists, return an error
+    if (existingEmployee) {
       return res
         .status(400)
         .json({ error: "Employee with the same name already exists" });
@@ -28,7 +28,7 @@ const validateNameExists = async (req, res, next) => {
     return res.status(500).json({ error: error.message });
   }
 
-  next();
+  next(); // Proceed to the next middleware or route handler
 };
 
 module.exports = {

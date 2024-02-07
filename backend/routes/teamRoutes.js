@@ -4,13 +4,13 @@ const employeeController = require("../controllers/teamcontrollers");
 const teammiddlewares = require("../middlewares/teammiddleware");
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
-router.use(userMiddleware.verifyToken);
-router.use(userMiddleware.checkAdminRole);
+// router.use(userMiddleware.verifyToken);
+// router.use(userMiddleware.checkAdminRole);
 // Route to create a new employee
 
 router.post(
-  "/employees",
-  teammiddlewares.validateRequiredFields,
+  "/ADDemployees",
+  // teammiddlewares.validateRequiredFields,
   teammiddlewares.validateNameExists,
   employeeController.createEmployee
 );
@@ -18,7 +18,7 @@ router.post(
 // Route to update an existing employee
 router.put(
   "/updateemployees/:id",
-  teammiddlewares.validateRequiredFields,
+  // teammiddlewares.validateRequiredFields,
   teammiddlewares.validateNameExists,
   employeeController.updateEmployee
 );
