@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { message } from "antd";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHandHoldingHeart,
@@ -48,27 +50,46 @@ function DashAdmin() {
     localStorage.getItem("adminMajor") || "Major: Computer Science";
   // const navigate = useNavigate();
 
-  // const handleLogout = async () => {
-  //   // Make a request to the server to invalidate the tokens and clear cookies
-  //   const response = await axios.post(
-  //     "http://localhost:3000/users/logout",
-  //     null,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     }
-  //   );
+  const handleLogout = async () => {
+    try {
+      // Make a request to logout endpoint
+      const response = await axios.post("http://localhost:3000/users/logout");
+      // Retrieve token and refresh token from cookies
+      // const token = document.cookie.replace(
+      //   /(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/,
+      //   "$1"
+      // );
+      // const refreshToken = document.cookie.replace(
+      //   /(?:(?:^|.*;\s*)refreshToken\s*\=\s*([^;]*).*$)|^.*$/,
+      //   "$1"
+      // );
 
-  //   if (response.status === 200) {
-  //     message.success(response.data.message);
-  //     // Clear tokens from localStorage and context
+      // Send token and refresh token in headers
+      // const config = {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //     "X-Refresh-Token": refreshToken,
+      //   },
+      // };
 
-  //     // navigate("/signin");
-  //   } else {
-  //     message.error(response.data.message);
-  //   }
-  // };
+      if (response.status === 200) {
+        // Clear cookies
+        document.cookie =
+          "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie =
+          "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+        // Redirect to login page or handle logout success
+        // For example:
+        message.success(response.data.message);
+        window.location.href = "/signin";
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      message.error(error.response.data.message);
+    }
+  };
   // Example data for a bar chart
 
   return (
@@ -126,8 +147,8 @@ function DashAdmin() {
               </Link>
             </li>
             <li>
-              <Link to="">
-                <a href="dd">
+              <Link to="/AdminDash/donationPage">
+                <a href="d">
                   <span>
                     <FontAwesomeIcon icon={faHandHoldingDollar} />
                   </span>
@@ -169,7 +190,7 @@ function DashAdmin() {
                       <li>Profile</li>
                     </Link>
 
-                    <li>Logout</li>
+                    <li onClick={handleLogout}>Logout </li>
                   </ul>
                 </div>
               )}

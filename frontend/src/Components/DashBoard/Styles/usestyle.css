@@ -1,34 +1,50 @@
 :root {
-  --main-bg-color: rgba(68, 65, 65, 0.1);
-  --border-colorgray: rgba(105, 105, 105, 0.788);
-  --box-shadow-color: rgba(0, 0, 0, 0.795);
+  --color-blue-dark: #0f42b6;
+  --color-blue-light: #074cea;
+  --color-navy: #193167;
+  --color-charcoal: #111b30;
+  --color-black: #0b0e16;
+  --color-indigo: #1d216b;
+  --color-royal: #0914eb;
+  --color-sapphire: #151dbb;
+  --color-midnight: #131532;
+  --color-onyx: #0b0c17;
+  --color-sky: #074bea;
+  --color-slate: #153f64;
+  --color-cerulean: #047ce8;
+  --color-cobalt: #0a62b1;
+  --color-steel: #10202f;
+  --color-jet: #0a1015;
+  --color-deep-blue: #032f95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153b;
+  --color-ocean-blue: #02598d;
+  --color-cerulean-blue: #0080cc;
+  --color-sky-blue: #007cc6;
+  --color-navy-blue: #033c5d;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003fd0;
+  --color-blue-2: #003dcb;
+  --baby-blue: #00e2e2;
   --text-color: white;
-  --button-bg-color22-green: rgb(55, 182, 123);
-  --button-bg-color11-green: rgb(2, 235, 126);
-  --link-color11-green: rgba(0, 151, 13, 0.89);
-  --link-color22-green: rgba(0, 85, 7, 0.89);
-  --link-hover1-blue: rgba(0, 238, 255, 0.89);
-  --link-hover2-blue: rgba(0, 152, 163, 0.89);
-  --body-color-blue: rgb(45, 136, 131);
-  --complement-yellow: rgb(255, 173, 51); /* Extra colors if need */
-  --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
-  --accent-color: rgb(214, 68, 98); /* Extra colors if need */
+  --accent-color: rgb(214, 68, 98);
+  --color-burgundy: #7a0006;
+  --color-crimson: #a10008;
+  --color-maroon: #450003;
+  --color-scarlet: #a50008;
 }
+
 .buttonAddUser {
-  --main-focus: #2d8cf0;
-  --font-color: #dedede;
-  --bg-color-sub: #222;
-  --bg-color: #323232;
-  --main-color: #dedede;
   position: relative;
   width: 150px;
   height: 40px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  border: 2px solid var(--main-color);
-  box-shadow: 4px 4px var(--main-color);
-  background-color: var(--button-bg-color22-green);
+  border: 2px solid var(--baby-blue);
+  box-shadow: 4px 4px var(--baby-blue);
+  background-color: var(--color-midnight-blue-2);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -50,7 +66,7 @@
   transform: translateX(109px);
   height: 100%;
   width: 39px;
-  background-color: var(--button-bg-color11-green);
+  background-color: var(--color-blue-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,27 +89,29 @@
   padding: 8px;
   border: 2px solid var(--body-color-blue);
   border-radius: 50%;
-  background-color: var(--link-color11-green);
+  background-color: var(--color-deep-blue);
   cursor: pointer;
   margin-right: 8px;
+  color: white;
 }
 .Updatebtn:hover {
-  background-color: var(--link-color12-yellow);
-  border: 3px solid var(--body-color-blue);
+  background-color: var(--color-blue-dark);
+  border: 3px solid var(--baby-blue);
   transform: scale(1.1);
 }
 .DeleteBtn {
   padding: 8px;
   border: 2px solid var(--body-color-blue);
   border-radius: 50%;
-  background-color: var(--accent-color);
+  background-color: var(--color-dark-indigo);
   cursor: pointer;
   margin-right: 8px;
   align-items: center;
   text-align: center;
+  color: white;
 }
 .DeleteBtn:hover {
-  background-color: var(--link-color12-yellow);
+  background-color: var(--color-maroon);
   border: 3px solid var(--box-shadow-color);
   transform: scale(1.1);
 }
@@ -104,7 +122,7 @@
   flex-direction: column;
   gap: 10px;
   max-width: 750px;
-  background-color: var(--button-bg-color22-green);
+  background-color: var(--color-midnight-blue);
   padding: 20px;
   border-radius: 20px;
   position: relative;
@@ -130,13 +148,13 @@
   width: 16px;
   border-radius: 50%;
   left: 0px;
-  background-color: var(--button-bg-color11-green);
+  background-color: var(--baby-blue) !important;
 }
 
 .title::before {
   width: 18px;
   height: 18px;
-  background-color: var(--link-color11-green);
+  background-color: var(--color-royal) !important;
 }
 
 .title::after {
@@ -147,7 +165,7 @@
 
 .message,
 .signin {
-  color: rgba(88, 87, 87, 0.822);
+  color: var(--baby-blue) !important;
   font-size: 14px;
 }
 
@@ -199,7 +217,7 @@
   color: green;
 }
 label select {
-  border: solid 3px #00ff55;
+  border: solid 3px var(--baby-blue);
   border-radius: 1rem;
   background: none;
   padding: 1rem;
@@ -209,16 +227,16 @@ label select {
   min-width: 210px !important;
 }
 label select option {
-  background-color: var(--link-hover2-blue);
+  background-color: var(--color-sky-blue);
 }
 label select option:checked {
-  background-color: var(--link-hover1-blue);
+  background-color: var(--color-ocean-blue);
 }
 .submit,
 .Cancelbtn {
   border: none;
   outline: none;
-  background-color: var(--link-color11-green);
+  background-color: var(--color-cobalt) !important;
   padding: 10px;
   border-radius: 10px;
   color: #fff;
@@ -228,7 +246,7 @@ label select option:checked {
   margin-right: 10px;
 }
 .Cancelbtn {
-  background-color: var(--accent-color);
+  background-color: var(--color-dark-indigo) !important;
 }
 .submit:hover {
   background-color: var();
@@ -266,9 +284,9 @@ label select option:checked {
 
 /* Modal Content/Box */
 .modal-contentC {
-  background-color: var(--text-color);
+  background-color: var(--color-navy-blue);
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 2px solid var(--accent-color);
+  border: 2px solid var(--baby-blue);
   width: 50%; /* Could be more or less, depending on screen size */
   border-radius: 30px;
 }
@@ -312,3 +330,106 @@ label select option:checked {
   border: 2px solid black;
 }
 /* todo end delete form-------------------------------- */
+/* ! loader ------------------------------------------- */
+.loadS {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%; /* Set height to fill parent container */
+}
+.spinner {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+}
+
+.spinner div {
+  position: absolute;
+  width: 50%;
+  height: 150%;
+  background: var(--color-cerulean-blue);
+  transform: rotate(calc(var(--rotation) * 1deg))
+    translate(0, calc(var(--translation) * 1%));
+  animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+}
+
+.spinner div:nth-child(1) {
+  --delay: 0.1;
+  --rotation: 36;
+  --translation: 150;
+}
+
+.spinner div:nth-child(2) {
+  --delay: 0.2;
+  --rotation: 72;
+  --translation: 150;
+}
+
+.spinner div:nth-child(3) {
+  --delay: 0.3;
+  --rotation: 108;
+  --translation: 150;
+}
+
+.spinner div:nth-child(4) {
+  --delay: 0.4;
+  --rotation: 144;
+  --translation: 150;
+}
+
+.spinner div:nth-child(5) {
+  --delay: 0.5;
+  --rotation: 180;
+  --translation: 150;
+}
+
+.spinner div:nth-child(6) {
+  --delay: 0.6;
+  --rotation: 216;
+  --translation: 150;
+}
+
+.spinner div:nth-child(7) {
+  --delay: 0.7;
+  --rotation: 252;
+  --translation: 150;
+}
+
+.spinner div:nth-child(8) {
+  --delay: 0.8;
+  --rotation: 288;
+  --translation: 150;
+}
+
+.spinner div:nth-child(9) {
+  --delay: 0.9;
+  --rotation: 324;
+  --translation: 150;
+}
+
+.spinner div:nth-child(10) {
+  --delay: 1;
+  --rotation: 360;
+  --translation: 150;
+}
+
+@keyframes spinner-fzua35 {
+  0%,
+  10%,
+  20%,
+  30%,
+  50%,
+  60%,
+  70%,
+  80%,
+  90%,
+  100% {
+    transform: rotate(calc(var(--rotation) * 1deg))
+      translate(0, calc(var(--translation) * 1%));
+  }
+
+  50% {
+    transform: rotate(calc(var(--rotation) * 1deg))
+      translate(0, calc(var(--translation) * 1.5%));
+  }
+}

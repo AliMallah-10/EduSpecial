@@ -5,15 +5,15 @@ const programMiddleware = require("../middlewares/programMiddleware");
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
-router.use(userMiddleware.checkAdminRole);
+// router.use(userMiddleware.checkAdminRole);
 // Public routes
 router.post(
   "/Addprogram",
-  programMiddleware.checkUniqueName,
-  programMiddleware.checkValidPrice,
-  programMiddleware.checkCategoryExistence,
-  programMiddleware.checkTalentExistence,
-  programMiddleware.validateRequiredFields,
+  // programMiddleware.checkUniqueName,
+  // programMiddleware.checkValidPrice,
+  // programMiddleware.checkCategoryExistence,
+  // programMiddleware.checkTalentExistence,
+  // programMiddleware.validateRequiredFields,
   programController.addProgram
 );
 
@@ -27,17 +27,17 @@ router.get(
 
 router.put(
   "/updateprogrambyid/:id",
-  programMiddleware.checkCategoryExistence,
-  programMiddleware.checkTalentExistence,
-  programMiddleware.checkValidPrice,
-  programMiddleware.checkUniqueUpdatedName,
+  // programMiddleware.checkCategoryExistence,
+  //
+  // programMiddleware.checkValidPrice,
+  // programMiddleware.checkUniqueUpdatedName,
   programController.updateProgramById
 );
 
 router.put(
   "/updateprogrambyname/:name",
   programMiddleware.checkCategoryExistence,
-  programMiddleware.checkTalentExistence,
+
   programMiddleware.checkValidPrice,
   programMiddleware.checkUniqueUpdatedName,
   programController.updateProgramByName

@@ -4,7 +4,7 @@ const eventsController = require("../controllers/eventsController");
 const eventsMiddleware = require("../middlewares/eventsMiddleware"); // Import the events middleware
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
-// router.use(userMiddleware.verifyToken);
+router.use(userMiddleware.verifyToken);
 // router.use(userMiddleware.checkAdminRole);
 // Route to create a new event
 router.post(

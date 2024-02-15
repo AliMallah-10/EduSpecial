@@ -1,20 +1,40 @@
 :root {
-  --main-bg-color: rgba(68, 65, 65, 0.1);
-  --border-colorgray: rgba(105, 105, 105, 0.788);
-  --box-shadow-color: rgba(0, 0, 0, 0.795);
+  --color-blue-dark: #0f42b6;
+  --color-blue-light: #074cea;
+  --color-navy: #193167;
+  --color-charcoal: #111b30;
+  --color-black: #0b0e16;
+  --color-indigo: #1d216b;
+  --color-royal: #0914eb;
+  --color-sapphire: #151dbb;
+  --color-midnight: #131532;
+  --color-onyx: #0b0c17;
+  --color-sky: #074bea;
+  --color-slate: #153f64;
+  --color-cerulean: #047ce8;
+  --color-cobalt: #0a62b1;
+  --color-steel: #10202f;
+  --color-jet: #0a1015;
+  --color-deep-blue: #032f95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153b;
+  --color-ocean-blue: #02598d;
+  --color-cerulean-blue: #0080cc;
+  --color-sky-blue: #007cc6;
+  --color-navy-blue: #033c5d;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003fd0;
+  --color-blue-2: #003dcb;
+  --baby-blue: #00e2e2;
   --text-color: white;
-  --button-bg-color22-green: rgb(55, 182, 123);
-  --button-bg-color11-green: rgb(2, 235, 126);
-  --link-color11-green: rgba(0, 151, 13, 0.89);
-  --link-color22-green: rgba(0, 85, 7, 0.89);
-  --link-hover1-blue: rgba(0, 238, 255, 0.89);
-  --link-hover2-blue: rgba(0, 152, 163, 0.89);
-  --body-color-blue: rgb(45, 136, 131);
-  --complement-yellow: rgb(255, 173, 51); /* Extra colors if need */
-  --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
   --accent-color: rgb(214, 68, 98);
-  --accent-color222: rgba(184, 9, 44, 0.87); /* Extra colors if need */
+  --color-burgundy: #7a0006;
+  --color-crimson: #a10008;
+  --color-maroon: #450003;
+  --color-scarlet: #a50008;
 }
+
 .cardsProgram {
   margin-top: 3rem;
   display: grid;
@@ -26,17 +46,61 @@
 }
 .menuC {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: var(--color-blue-dark);
+  padding: 10px;
+  border-radius: 6px;
+}
+/* ! buttons----------================================================ */
+.listPN {
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: var(--button-bg-color22-green);
-  padding: 15px;
-  border-radius: 6px;
 }
+.listPN i{
+color: white;
+font-size: 20px;
+margin-right: 10px;
+border: 2px solid  #fff;
+padding: 8px;
+border-radius: 6px;
+}
+.listPN .trashbtn:hover{
+color: var(--text-color);
+background-color: var(--color-dark-indigo);
+}
+.listPN .plus:hover{
+color: var(--text-color);
+background-color: var(--color-deep-blue);
+}
+.listPNSmall{
+  display: none;
+  /* margin-left: 15px; */
+}
+.listPNSmall i{
+  color: white;
+font-size: 20px;
+margin-right: 10px;
+border: 2px solid  #fff;
+padding: 8px;
+border-radius: 6px;
+}
+.listPNSmall .trashbtn:hover{
+color: var(--text-color);
+background-color: var(--color-dark-indigo);
+}
+.listPNSmall .plus:hover{
+color: var(--text-color);
+background-color: var(--color-deep-blue);
+}
+/* ! menu= ============================================================= */
 .menuC li span {
-  padding: 8px;
-  background-color: var(--button-bg-color11-green);
-  margin: 10px;
+  padding: 9px;
+  /* background-color: var(--color-cerulean); */
+  margin: 10px 12px;
   border-radius: 8px;
   color: var(--text-color);
 }
@@ -68,12 +132,12 @@
   border-radius: 30px;
   margin-right: 15px;
   border: none;
-  background-color: var(--link-color22-green);
+  background-color: var(--color-cobalt);
   color: var(--text-color);
   cursor: pointer;
 }
 .btnDeleteP {
-  background-color: var(--accent-color222);
+  background-color: var(--color-dark-indigo);
   color: var(--text-color);
 }
 .btnReadMore:hover,
@@ -84,7 +148,7 @@
 /* ! menu responsive ---------------------------- */
 
 .dropbtn {
-  background-color: #04aa6d;
+  background-color: var(--color-blue-light);
   color: white;
   padding: 16px;
   font-size: 17px;
@@ -101,21 +165,23 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--link-color22-green);
+  background-color: var(--color-cobalt);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+
 }
 
 .dropdown-content a {
-  color: black;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  text-transform: uppercase;
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background-color: var(--color-cerulean);
 }
 
 .dropdown:hover .dropdown-content {
@@ -123,7 +189,7 @@
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  background-color:var(--color-blue-2);
 }
 @media only screen and (max-width: 730px) {
   .menuC {
@@ -132,6 +198,11 @@
   .dropbtn {
     display: block;
   }
+  .listPNSmall{
+  display: block;
+  margin-bottom: 25px;
+  /* margin-left: 15px; */
+}
 }
 /* ! model program ------------------------------ */
 /* The Modal (background) */
@@ -147,15 +218,30 @@
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   padding-top: 60px;
 }
+/* The Close Button (x)
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px;
+}
 
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} */
 /* Modal Content/Box */
 .modal-contentProgram {
-  /* background-color: rgba(0, 85, 7, 0.89); */
+  background-color: var(--color-cobalt) !important;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  /* border: 1px solid rgb(2, 235, 126); */
+  border: 1px solid var(--baby-blue) !important;
   width: 50%; /* Could be more or less, depending on screen size */
   border-radius: 30px;
   text-align: center;
+  
 }
 /* ! inputs add form --------------------------- */
 
@@ -164,7 +250,7 @@
   flex-direction: column;
   gap: 10px;
   /* max-width: 750px; */
-  background-color: var(--button-bg-color22-green);
+  /* background-color: var(--button-bg-color22-green); */
   padding: 20px;
   border-radius: 20px;
   position: relative;
@@ -280,7 +366,7 @@
 .Cancelbtn {
   border: none;
   outline: none;
-  background-color: var(--link-color11-green);
+  background-color: var(--color-blue-2) !important;
   padding: 10px;
   border-radius: 10px;
   color: #fff;
@@ -290,10 +376,22 @@
   margin-right: 10px;
 }
 .Cancelbtn {
-  background-color: var(--accent-color);
+  background-color: var(--color-dark-indigo) !important;
 }
 .submit:hover {
+  filter: brightness(80%);
+  border: 1px solid white;
   background-color: var();
+}
+.btnsFormuserUD {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#subD{
+  margin-left: 18px;
+  background-color: brown;
 }
 .messageadduser {
   text-align: center;
@@ -322,11 +420,11 @@
   background: #ad5389;
   background: linear-gradient(
     0deg,
-    rgba(20, 167, 62, 1) 0%,
-    rgba(102, 247, 113, 1) 100%
+    rgba(8.2, 2.4, 83.5) 0%,
+    rgba(0, 27.5, 90.6) 100%
   );
   border: none;
-  box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+  box-shadow: 0 0.7em 1.5em -0.5em var(--color-cerulean-blue);
   letter-spacing: 0.05em;
   border-radius: 20em;
   margin-top: 10px;
@@ -337,9 +435,12 @@
 }
 
 .cssbuttons-io-button:hover {
-  box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+  box-shadow: 0 0.5em 1.5em -0.5em var(--color-cerulean-blue);
 }
 
 .cssbuttons-io-button:active {
-  box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+  box-shadow: 0 0.3em 1em -0.5em var(--color-cerulean-blue);
 }
+
+
+

@@ -17,7 +17,7 @@ const programSchema = new mongoose.Schema({
   talent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Assuming User model is used for talents
-    required: true,
+    // required: true,
   },
   price: {
     type: Number,

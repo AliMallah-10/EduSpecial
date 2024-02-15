@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
+import { message } from "antd";
 const ProfilePage = () => {
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || null
   );
@@ -17,6 +23,11 @@ const ProfilePage = () => {
     localStorage.setItem("adminName", adminName);
     localStorage.setItem("adminMajor", adminMajor);
     localStorage.setItem("profileImage", profileImage);
+    // Get user's email from localStorage (assuming you saved it during login)
+    const email = localStorage.getItem("email");
+    if (email) {
+      setUserEmail(email);
+    }
   }, [adminName, adminMajor, profileImage]);
 
   const handleToggleChangePassword = () => {
@@ -40,6 +51,61 @@ const ProfilePage = () => {
 
   const handleMajorChange = (event) => {
     setAdminMajor(event.target.value);
+  };
+
+  const handlePasswordSubmit = async () => {
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    try {
+      // Verify old password
+      const oldPasswordValid = await axios.post(
+        `http://localhost:3000/users/verify-password`,
+        {
+          email: userEmail,
+          password: oldPassword,
+        }
+      );
+
+      if (!oldPasswordValid.data.valid) {
+        setErrorMessage("Incorrect old password");
+        return;
+      }
+
+      // Proceed with password update
+      const response = await axios.put(
+        `http://localhost:3000/users/updateuserbyemail/${userEmail}`,
+        {
+          password: newPassword,
+        }
+      );
+
+      if (response.status === 200) {
+        message.success(response.data.message);
+      } else {
+        setErrorMessage(
+          response.data.error ||
+            response.data.message ||
+            "Failed to update password."
+        );
+        setTimeout(() => setErrorMessage(""), 3000);
+      }
+      setErrorMessage("");
+      // Reset password fields
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      handleToggleChangePassword();
+    } catch (error) {
+      setErrorMessage(
+        error.response.data.error ||
+          error.response.data.message ||
+          "Failed to update password"
+      );
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
   };
 
   return (
@@ -96,7 +162,7 @@ const ProfilePage = () => {
       </div>
 
       <button
-        className="bg-green-500 text-white px-4 py-2 rounded focus:outline-none"
+        className="bg-blue-500 text-white px-4 py-2 rounded focus:outline-none"
         onClick={handleToggleChangePassword}
       >
         Change Password
@@ -116,6 +182,8 @@ const ProfilePage = () => {
               id="oldPassword"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Old Password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -130,6 +198,8 @@ const ProfilePage = () => {
               id="newPassword"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="New Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -144,12 +214,15 @@ const ProfilePage = () => {
               id="confirmPassword"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
           <div className="flex justify-center">
             <button
               type="button"
-              className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+              className="bg-blue-700 text-white px-4 py-2 rounded mr-2"
+              onClick={handlePasswordSubmit}
             >
               Submit
             </button>
@@ -161,7 +234,9 @@ const ProfilePage = () => {
               Cancel
             </button>
           </div>
-          <p className="mt-10 text-center text-red-500 font-semibold text-1xl"></p>
+          <p className="mt-10 text-center text-red-500 font-semibold text-1xl">
+            {errorMessage}
+          </p>
         </form>
       )}
     </div>

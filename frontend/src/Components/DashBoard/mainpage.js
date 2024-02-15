@@ -721,7 +721,9 @@ function Mainpage() {
                   <span className="close" onClick={closeModal}>
                     &times;
                   </span>
+                
                   <div className="imgcontainer">
+                  <h1>Update Team</h1>
                     {/* Display the image */}
                     <img
                       className="w-40 h-40 rounded-xl mt-10"

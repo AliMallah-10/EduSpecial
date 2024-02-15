@@ -2,18 +2,21 @@ const Program = require("../models/program");
 const Category = require("../models/category");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-
 // Middleware to check if the program name is unique
 exports.checkUniqueName = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    // Convert req.body to JSON string and then parse it back to a JavaScript object
+    // const bodyData = JSON.parse(JSON.stringify(req.body));
 
+    const { name } = bodyData;
+    console.log("The name gggggggggggggg:", name);
     const existingProgram = await Program.findOne({ name });
-
+    console.log("The name:", name);
     if (existingProgram) {
-      return res
-        .status(400)
-        .json({ message: "Program with this name already exists" });
+      return res.status(400).json({
+        message: "Program with this name already exists",
+        existingProgramName: existingProgram.name,
+      });
     }
 
     next();
@@ -52,24 +55,6 @@ exports.checkCategoryExistence = async (req, res, next) => {
   }
 };
 
-// Middleware to check if the referenced talent exists
-exports.checkTalentExistence = async (req, res, next) => {
-  try {
-    const { talent } = req.body;
-
-    const existingTalent = await User.findById(talent);
-
-    if (!existingTalent) {
-      return res.status(400).json({ message: "Invalid talent" });
-    }
-
-    next();
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
 // Middleware to check if the updated program name is unique
 exports.checkUniqueUpdatedName = async (req, res, next) => {
   try {
@@ -92,10 +77,20 @@ exports.checkUniqueUpdatedName = async (req, res, next) => {
 };
 // Middleware to validate if all required fields are provided
 
-exports.validateRequiredFields = async (req, res, next) => {
-  const { name, description, category, talent, price } = req.body;
+// exports.validateRequiredFields = async (req, res, next) => {
+//   const { name, description, category, price } = req.body;
 
-  if (!name || !description || !category || !talent || !price) {
+//   if (!name || !description || !category || !price) {
+//     return res.status(400).json({ message: "All fields are required" });
+//   }
+
+//   next();
+// };
+
+exports.validateRequiredFields = (req, res, next) => {
+  const { name, description, category, price } = req.body;
+
+  if (!name || !description || !category || !price) {
     return res.status(400).json({ message: "All fields are required" });
   }
 

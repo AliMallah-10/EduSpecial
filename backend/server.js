@@ -15,6 +15,7 @@ const eventsRoutes = require("./routes/eventsRoutes");
 const teamRoutes = require("./routes/teamRoutes");
 const donation = require("./routes/donationRoutes");
 const registerProg = require("./routes/registerProgramRoutes");
+
 // Middleware
 app.use(
   cors({
@@ -30,6 +31,9 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
+// app.use(
+//   bodyParser.urlencoded({ extended: true, limit: 10000, parameterLimit: 2 })
+// );
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use user routes
@@ -41,7 +45,7 @@ app.use("/events", eventsRoutes);
 app.use("/team", teamRoutes);
 app.use("/donate", donation);
 app.use("/registerProgam", registerProg);
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 // Access environment variables
 const port = process.env.PORT || 7000;

@@ -27,6 +27,25 @@ transporter.verify((error, success) => {
   }
 });
 //===================== NodeMailer Ends ===============================================================
+exports.verifyPassword= async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    // If user not found or password does not match, return false
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.json({ valid: false });
+    }
+
+    // If password matches, return true
+    return res.json({ valid: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 //================= User Authentication and Verification  Starts ======================================
 // verify email
@@ -366,15 +385,16 @@ exports.Payments = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+// const invalidatedRefreshTokens = [];
 //todo Function to refresh access token using refresh token
 exports.refreshToken = async (req, res) => {
   try {
     // Extract refresh token from the Authorization header
     const refreshTokenHeader = req.header("Authorization");
 
-    if (invalidatedRefreshTokens.includes(refreshTokenHeader)) {
-      return res.status(401).json({ error: "Invalid refresh token" });
-    }
+    // if (invalidatedRefreshTokens.includes(refreshTokenHeader)) {
+    //   return res.status(401).json({ error: "Invalid refresh token" });
+    // }
     if (!refreshTokenHeader) {
       return res.status(400).json({ error: "Refresh token not provided" });
     }
@@ -405,7 +425,7 @@ exports.refreshToken = async (req, res) => {
       { id: userId },
       process.env.REFRESH_TOKEN_SECRET,
       {
-        expiresIn: "7 days", // Choose an appropriate expiration time
+        expiresIn: "1 day", // Choose an appropriate expiration time
       }
     );
 
@@ -498,7 +518,7 @@ exports.loginUser = async (req, res) => {
       { id: user._id },
       process.env.REFRESH_TOKEN_SECRET,
       {
-        expiresIn: "2 minutes",
+        expiresIn: "1 day",
       }
     );
 
@@ -539,38 +559,17 @@ function formatRemainingTime(timeInMilliseconds) {
 }
 //? Function to format remaining time in MM:SS format---------------
 //! Maintain a list of invalidated refresh tokens (in-memory or persistent store)
-const invalidatedRefreshTokens = [];
 
 // Function to handle user logout
 exports.logoutUser = async (req, res) => {
   try {
-    // Get the access token from the request headers
-    const accessTokenHeader = req.header("Authorization");
-    const accessToken = accessTokenHeader
-      ? accessTokenHeader.replace("Bearer ", "")
-      : null;
-
-    // Optionally, you can also get the refresh token if needed
-    const refreshTokenHeader = req.header("refreshauth");
-    const refreshToken = refreshTokenHeader
-      ? refreshTokenHeader.replace("Bearer ", "")
-      : null;
-
-    // Your logic to handle the tokens (e.g., invalidate them)
-
-    // Clear any existing tokens on the client-side (cookies, localStorage, etc.)
     // Clear cookies in the response
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
 
-    // Optionally, you can also add the tokens to the list of invalidated tokens
-    if (accessToken && !invalidatedRefreshTokens.includes(accessToken)) {
-      invalidatedRefreshTokens.push(accessToken);
-    }
-    if (refreshToken && !invalidatedRefreshTokens.includes(refreshToken)) {
-      invalidatedRefreshTokens.push(refreshToken);
-    }
-
+    // Clear tokens from headers
+    delete req.headers["accessToken"];
+    delete req.headers["refreshToken"];
     // Respond with a success message
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
@@ -742,7 +741,7 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, { password: 0 }); // Exclude the password field from the results
 
-    res.status(200).json({ users });
+    res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

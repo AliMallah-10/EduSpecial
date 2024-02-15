@@ -5,21 +5,42 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 :root {
-  --main-bg-color: rgba(255, 255, 255, 0.1);
-  --border-color: rgba(255, 255, 255, 0.2);
-  --box-shadow-color: rgba(0, 0, 0, 0.2);
+  --color-blue-dark: #0f42b6;
+  --color-blue-light: #074cea;
+  --color-navy: #193167;
+  --color-charcoal: #111b30;
+  --color-black: #0b0e16;
+  --color-indigo: #1d216b;
+  --color-royal: #0914eb;
+  --color-sapphire: #151dbb;
+  --color-midnight: #131532;
+  --color-onyx: #0b0c17;
+  --color-sky: #074bea;
+  --color-slate: #153f64;
+  --color-cerulean: #047ce8;
+  --color-cobalt: #0a62b1;
+  --color-steel: #10202f;
+  --color-jet: #0a1015;
+  --color-deep-blue: #032f95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153b;
+  --color-ocean-blue: #02598d;
+  --color-cerulean-blue: #0080cc;
+  --color-sky-blue: #007cc6;
+  --color-navy-blue: #033c5d;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003fd0;
+  --color-blue-2: #003dcb;
+  --baby-blue: #00e2e2;
   --text-color: white;
-  --button-bg-color22: rgb(55, 182, 123);
-  --button-bg-color11: rgb(2, 235, 126);
-  --link-color11: rgba(0, 151, 13, 0.89);
-  --link-color22: rgba(0, 85, 7, 0.89);
-  --link-hover1-color: rgba(0, 238, 255, 0.89);
-  --link-hover2-color: rgba(0, 152, 163, 0.89);
-  --body-color: rgb(45, 136, 131);
-  --complement-color1: rgb(255, 173, 51); /* Extra colors if need */
-  --complement-color2: rgb(107, 142, 35); /* Extra colors if need */
-  --accent-color: rgb(214, 68, 98); /* Extra colors if need */
+  --accent-color: rgb(214, 68, 98);
+  --color-burgundy: #7a0006;
+  --color-crimson: #a10008;
+  --color-maroon: #450003;
+  --color-scarlet: #a50008;
 }
+
 /* body {
   display: flex;
   justify-content: center;
@@ -34,7 +55,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../../Assets/images/signupBack.jpg") no-repeat !important;
+  background-image: url("../../Assets/images/pexels-naveen-darzz-709604.jpg") !important;
   background-size: cover;
   background-position: center;
 }
@@ -43,7 +64,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(35px);
   border-radius: 10px;
   color: white;
   padding: 40px 35px 55px;
@@ -88,7 +109,7 @@
 .wrapperlog .btnR {
   width: 100%;
   height: 45px;
-  background: rgb(2, 235, 126);
+  background: var(--color-blue-2);
   outline: none;
   border-radius: 10px;
   font-size: 17px;
@@ -97,6 +118,7 @@
   box-shadow: 0 0 10px black;
   font-weight: 600;
   margin-top: 20px;
+  color: white;
 }
 .wrapperlog label {
   font-size: 15px;
@@ -104,11 +126,11 @@
   margin: 10px 0 0px;
 }
 .wrapperlog label .link {
-  color: rgba(0, 151, 13, 0.89) !important;
+  color: var(--baby-blue)  !important;
   text-decoration: none;
 }
 .wrapperlog label .link:hover {
-  color: rgba(0, 238, 255, 0.89) !important;
+  color: var(--color-blue) !important;
   text-decoration: none;
 }
 /* !forget password-------------------------------- */
@@ -120,7 +142,7 @@
   justify-content: flex-end;
 }
 .wrapperlog label .linkforget {
-  color: rgba(0, 151, 13, 0.89) !important;
+  /* color: var() !important; */
   text-decoration: none;
 }
 .wrapperlog label .linkforget:hover {
@@ -155,4 +177,13 @@
 text-align: center;
 margin-bottom: 10px;
 color: rgb(214, 68, 98);
+}
+
+#togglePasswordSignIN
+{
+  position: absolute;
+  left: 420px !important;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

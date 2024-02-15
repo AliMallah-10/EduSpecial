@@ -20,37 +20,34 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+// Upload middleware
+const upload = multer({ storage: storage }).single("image");
 
-// Function to add a new program with image upload
+// Controller function to add a new program
 exports.addProgram = async (req, res) => {
   try {
-    const { name, description, category, talent, price, image } = req.body;
-
-    // Assuming the file input in the form is named "image"
-    upload.single("image")(req, res, async function (err) {
-      if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: "File upload error" });
-      } else if (err) {
-        return res.status(500).json({ error: "Internal server error" });
+    upload(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
       }
+
+      const { name, description, category, price } = req.body;
+      const image = req.file.filename;
 
       const newProgram = new Program({
         name,
         description,
         category,
-        talent,
         price,
-        image: req.file ? req.file.path : null, // Store the file path if uploaded
+        image,
       });
 
       await newProgram.save();
-
-      res.status(201).json({ message: "Program added successfully" });
+      res.json({ message: "Program added successfully" });
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    console.error("Error adding program:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -59,7 +56,7 @@ exports.getAllPrograms = async (req, res) => {
   try {
     const programs = await Program.find();
 
-    res.status(200).json({ programs });
+    res.status(200).json(programs);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
@@ -130,48 +127,41 @@ exports.getProgramsByCategory = async (req, res) => {
   }
 };
 
-// Function to update a program by ID with file upload
+// Update program by ID
 exports.updateProgramById = async (req, res) => {
   try {
-    const programId = req.params.id;
-    const { name, description, category, talent, price } = req.body;
-
-    const program = await Program.findById(programId);
-
-    if (!program) {
-      return res.status(404).json({ message: "Program not found" });
-    }
-
-    // File upload logic
-    upload.single("image")(req, res, async function (err) {
-      if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: "File upload error" });
-      } else if (err) {
-        return res.status(500).json({ error: "Internal server error" });
+    // Call the upload middleware to handle the image upload
+    upload(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
       }
 
-      // Update program fields
-      program.name = name || program.name;
-      program.description = description || program.description;
-      program.category = category || program.category;
-      program.talent = talent || program.talent;
-      program.price = price || program.price;
+      const programId = req.params.id;
+      const { name, description, category, price } = req.body;
+      const updateFields = { name, description, category, price };
 
-      // Update the image field only if a new file is uploaded
+      // If there is a new file, update the image field
       if (req.file) {
-        program.image = req.file.path;
+        updateFields.image = req.file.filename;
       }
 
-      // Save the updated program
-      await program.save();
+      const updatedProgram = await Program.findByIdAndUpdate(
+        programId,
+        updateFields,
+        { new: true }
+      );
+      
+      if (!updatedProgram) {
+        return res.status(404).json({ message: "Program not found" });
+      }
 
       res.status(200).json({ message: "Program updated successfully" });
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Function to update a program by name with file upload
 exports.updateProgramByName = async (req, res) => {
@@ -185,35 +175,27 @@ exports.updateProgramByName = async (req, res) => {
       return res.status(404).json({ message: "Program not found" });
     }
 
-    // File upload logic
-    upload.single("image")(req, res, async function (err) {
-      if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: "File upload error" });
-      } else if (err) {
-        return res.status(500).json({ error: "Internal server error" });
-      }
+    // Update program fields
+    program.description = description || program.description;
+    program.category = category || program.category;
+    program.talent = talent || program.talent;
+    program.price = price || program.price;
 
-      // Update program fields
-      program.description = description || program.description;
-      program.category = category || program.category;
-      program.talent = talent || program.talent;
-      program.price = price || program.price;
+    // Check if a new image file is uploaded
+    if (req.file) {
+      program.image = req.file.path;
+    }
 
-      // Update the image field only if a new file is uploaded
-      if (req.file) {
-        program.image = req.file.path;
-      }
+    // Save the updated program
+    await program.save();
 
-      // Save the updated program
-      await program.save();
-
-      res.status(200).json({ message: "Program updated successfully" });
-    });
+    res.status(200).json({ message: "Program updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
 // Function to delete a program by ID
 exports.deleteProgramById = async (req, res) => {
   try {

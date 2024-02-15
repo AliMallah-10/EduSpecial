@@ -1,0 +1,68 @@
+/* Custom CSS for radial progress bar */
+
+:root {
+  --color-blue-dark: #0f42b6;
+  --color-blue-light: ;
+  --color-navy: #193167;
+  --color-charcoal: #111b30;
+  --color-black: #0b0e16;
+  --color-indigo: #1d216b;
+  --color-royal: #0914eb;
+  --color-sapphire: #151dbb;
+  --color-midnight: #131532;
+  --color-onyx: #0b0c17;
+  --color-sky: #074bea;
+  --color-slate: #153f64;
+  --color-cerulean: #047ce8;
+  --color-cobalt: #0a62b1;
+  --color-steel: #10202f;
+  --color-jet: #0a1015;
+  --color-deep-blue: #032f95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153b;
+  --color-ocean-blue: #02598d;
+  --color-cerulean-blue: #0080cc;
+  --color-sky-blue: #007cc6;
+  --color-navy-blue: #033c5d;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003fd0;
+  --color-blue-2: #003dcb;
+  --baby-blue: #00e2e2;
+  --text-color: white;
+  --accent-color: rgb(214, 68, 98);
+  --color-burgundy: #7a0006;
+  --color-crimson: #a10008;
+  --color-maroon: #450003;
+  --color-scarlet: #a50008;
+}
+
+.radial-progress {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: conic-gradient(
+    #074bea calc(var(--value) * 1%),
+    #0080cc calc(var(--value) * 1%)
+  );
+  /* background-color: black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  /* border: var(--thickness) solid transparent; */
+  border: 2px solid white;
+  background-clip: padding-box;
+}
+.crdDonate {
+  border-radius: 79px;
+  background: var(--color-midnight-blue-2);
+  box-shadow: 3px 3px 6px var(--color-midnight-blue-2), -3px -3px 66px var(--color-indigo);
+}
+
+.crdDonate:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}

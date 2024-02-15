@@ -4,10 +4,10 @@ const Category = require("../models/category");
 // Create a new category
 const createCategory = async (req, res) => {
   try {
-    const { name, description, count, eventDate } = req.body;
+    const { name, description, count } = req.body;
 
     // Check if required fields are provided
-    if (!name || !description || !eventDate) {
+    if (!name || !description) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -15,7 +15,6 @@ const createCategory = async (req, res) => {
       name,
       description,
       count,
-      eventDate,
     });
 
     await category.save();
@@ -53,10 +52,10 @@ const getCategoryById = async (req, res) => {
 const updateCategoryById = async (req, res) => {
   try {
     const categoryId = req.params.id;
-    const { name, description, count, eventDate } = req.body;
+    const { name, description, count } = req.body;
     const updatedCategory = await Category.findByIdAndUpdate(
       categoryId,
-      { name, description, count, eventDate },
+      { name, description, count },
       { new: true }
     );
     if (!updatedCategory) {

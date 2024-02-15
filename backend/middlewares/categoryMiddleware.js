@@ -5,7 +5,7 @@ const validateCategory = async (req, res, next) => {
   const categoryId = req.params.id; // Retrieve the category ID from the request parameters
 
   // Check if required fields are provided
-  if (!name || !description || !eventDate) {
+  if (!name || !description) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -16,15 +16,15 @@ const validateCategory = async (req, res, next) => {
       .json({ error: "Count must be a non-negative number" });
   }
 
-  // Validate eventDate to be a valid date in the future
-  const currentDate = new Date();
-  const inputDate = new Date(eventDate);
+  // // Validate eventDate to be a valid date in the future
+  // const currentDate = new Date();
+  // const inputDate = new Date(eventDate);
 
-  if (isNaN(inputDate) || inputDate <= currentDate) {
-    return res
-      .status(400)
-      .json({ error: "Category date must be a valid date in the future" });
-  }
+  // if (isNaN(inputDate) || inputDate <= currentDate) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: "Category date must be a valid date in the future" });
+  // }
 
   // Check if the category name already exists
   try {

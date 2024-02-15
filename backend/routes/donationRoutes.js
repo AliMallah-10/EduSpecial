@@ -12,7 +12,7 @@ router.post(
 );
 // Private routes (require token authentication)
 router.use(userMiddleware.verifyToken);
-router.use(userMiddleware.checkAdminRole);
+// router.use(userMiddleware.checkAdminRole);
 // Route to get all donations
 router.get("/getalldonations", donationController.getAllDonations);
 

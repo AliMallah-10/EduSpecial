@@ -6,29 +6,51 @@
   text-decoration: none;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+
 :root {
-  --main-bg-color: rgba(68, 65, 65, 0.1);
-  --border-colorgray: rgba(105, 105, 105, 0.788);
-  --box-shadow-color: rgba(0, 0, 0, 0.2);
+  --color-blue-dark: #0F42B6;
+  --color-blue-light: #074CEA;
+  --color-navy: #193167;
+  --color-charcoal: #111B30;
+  --color-black: #0B0E16;
+  --color-indigo: #1D216B;
+  --color-royal: #0914EB;
+  --color-sapphire: #151DBB;
+  --color-midnight: #131532;
+  --color-onyx: #0B0C17;
+  --color-sky: #074BEA;
+  --color-slate: #153F64;
+  --color-cerulean: #047CE8;
+  --color-cobalt: #0A62B1;
+  --color-steel: #10202F;
+  --color-jet: #0A1015;
+  --color-deep-blue: #032F95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153B;
+  --color-ocean-blue: #02598D;
+  --color-cerulean-blue: #0080CC;
+  --color-sky-blue: #007CC6;
+  --color-navy-blue: #033C5D;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003FD0;
+  --color-blue-2: #003DCB;
+  --baby-blue:#00E2E2;
   --text-color: white;
-  --button-bg-color22-green: rgb(55, 182, 123);
-  --button-bg-color11-green: rgb(2, 235, 126);
-  --link-color11-green: rgba(0, 151, 13, 0.89);
-  --link-color22-green: rgba(0, 85, 7, 0.89);
-  --link-hover1-blue: rgba(0, 238, 255, 0.89);
-  --link-hover2-blue: rgba(0, 152, 163, 0.89);
-  --body-color-blue: rgb(45, 136, 131);
-  --complement-yellow: rgb(255, 173, 51); 
-  --complement-color2: rgb(107, 142, 35); 
   --accent-color: rgb(214, 68, 98); 
+  --color-burgundy: #7A0006;
+  --color-crimson: #A10008;
+  --color-maroon: #450003;
+  --color-scarlet: #A50008;
 }
+
 .sidebar {
   width: 345px;
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
-  background: var(--button-bg-color22-green);
+  background: var(--color-blue-dark);
   z-index: 100;
   transition: width 300ms;
 }
@@ -59,7 +81,7 @@
   background: var(--text-color);
   padding-top: 1rem;
   padding-bottom: 1rem;
-  color: var(--button-bg-color22-green);
+  color: var(--color-sapphire);
   border-radius: 30px 0 0 30px;
 }
 .sidebar-menu a span:first-child {
@@ -104,8 +126,8 @@ header {
     rgba(0, 85, 7, 0.89),
     rgba(0, 152, 163, 0.89)
   ); */
-  background-color: var(--text-color);
-  box-shadow: 3px 3px 25px var(--button-bg-color11-green);
+  background-color: var(--color-blue-dark);
+  box-shadow: 3px 3px 25px var(--color-indigo);
   /* box-shadow:  2px 2px 5px var(--button-bg-color11-green);  */
   position: fixed;
   left: 345px;
@@ -118,7 +140,7 @@ header {
   display: none;
 }
 header h3 {
-  color: var(--body-color-blue);
+  color: var(--text-color);
 }
 header label span {
   font-size: 1.7rem;
@@ -126,7 +148,7 @@ header label span {
 }
 .search-wrapper {
   border-radius: 47px;
-  border: 1px solid var(--body-color-blue);
+  border: 1px solid var(--color-cerulean);
   height: 50px;
   display: flex;
   align-items: center;
@@ -137,14 +159,15 @@ header label span {
   display: inline-block;
   padding: 0rem 0.5rem;
   font-size: 1.2rem;
+  color: white;
 }
 .search-wrapper input {
   height: 100%;
   width: 100%;
   padding: 0.5rem;
   border-radius: 47px;
-  background: #226c0e;
-  box-shadow: inset -34px 34px 40px #144108, inset 34px -34px 40px #309714;
+  background: var(--text-color);
+  /* box-shadow: inset -34px 34px 40px var(--color-sapphire), inset 34px -34px 40px var(--color-sapphire); */
   border: none;
   outline: none;
   color: var(--text-color);
@@ -158,22 +181,28 @@ header label span {
   margin-right: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
+  color: white;
 }
 .user-wrapper i:hover {
-  color: var(--border-colorgray);
+  color: var(--color-slate);
   transition: 0.5s;
 }
 .user-wrapper span {
   margin-right: 0.4rem;
+  color: white;
 }
 
 .user-wrapper img {
   border-radius: 50%;
   margin-right: 1rem;
 }
+.user-wrapper h4{
+ 
+  color: var(--text-color);
+}
 .user-wrapper small {
   display: inline-block;
-  color: var(--button-bg-color22-green);
+  color: var(--color-steel);
 }
 /* ! dropdown form */
 .dropdownProfile {
@@ -183,7 +212,7 @@ header label span {
   width: 120px;
   padding: 15px;
   border-radius: 15px;
-  background-color: var(--button-bg-color11-green);
+  background-color: var(--color-cobalt);
   border: 1px solid var(--body-color-blue);
 }
 .dropdownProfile::before {
@@ -195,7 +224,7 @@ header label span {
   height: 20px;
   transform: rotate(45deg);
   border-top: 1px solid var(--body-color-blue);
-  background-color: var(--button-bg-color11-green);
+  background-color: var(--color-cobalt);
   border-left: 1px solid var(--body-color-blue);
 }
 .dropdownProfile li {
@@ -214,16 +243,13 @@ header label span {
 main {
   margin-top: 85px;
   padding: 2rem 1.5rem;
-  /* background: var(--body-color-blue); */
+  background: var(--color-slate);
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(
-    45deg,
-    #2e7757,
-    #008621 20px,
-    #0a573e 20px,
-    #139602 40px
-  );
+  /* background: rgba(29, 31, 32, 0.904)
+    radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%); */
+
+  background-size: 11px 11px;
   /* min-height: calc(100vh-90px) !important; */
   min-height: 100vh !important;
 }
@@ -238,11 +264,12 @@ main {
   /* margin-right: 3rem; */
   display: flex;
   justify-content: space-between;
-  background: var(--text-color);
+  background: var(--color-charcoal);
   padding: 2rem;
   border-radius: 5px;
   /* max-width: 30%;  */
   /* box-sizing: border-box;  */
+  color: var(--text-color);
 }
 /* .card-single:last-child {
  
@@ -252,10 +279,10 @@ main {
 }
 .card-single div:last-child span {
   font-size: 3rem;
-  color: var(--complement-color2);
+  color: var(--color-sky);
 }
 .card-single div:first-child span {
-  color: var(--link-color22-green);
+  color: var(--baby-blue);
 }
 .card-single:hover {
   box-shadow: 5px 5px 51px #202020;
@@ -282,7 +309,7 @@ main {
   border-bottom: 1px solid var(--body-color-blue);
 }
 .card-header button {
-  background: var(--button-bg-color11-green);
+  background: var(--color-cerulean-blue);
   border-radius: 15px;
   transition: all 0.4s ease;
   text-transform: uppercase;
@@ -319,15 +346,7 @@ tr td:last-child {
   align-items: center;
 }
 
-.status.purple {
-  background: var(--complement-yellow);
-}
-.status.pink {
-  background: var(--accent-color);
-}
-.status.orange {
-  background: var(--complement-color2);
-}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -352,23 +371,23 @@ tr td:last-child {
   margin: 5px 10px 5px 0px;
   font-size: 1.1rem;
   display: inline-block;
-  color: var(--button-bg-color22-green);
+  color: var(--color-blue);
 }
 .info i:hover {
-  color: var(--button-bg-color11-green);
+  color: var(--baby-blue);
   transform: scale(1.1);
 }
 .info .icons_Con {
   margin-top: 10px;
 }
 .info h4 {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--link-color22-green);
+  color: var(--color-black);
 }
 .info small {
   font-weight: 600;
-  color: var(--border-colorgray);
+  color: var(--color-cerulean-blue);
 }
 .contact {
   display: flex;
@@ -383,17 +402,17 @@ tr td:last-child {
   height: 40px;
   border: none;
   padding: 0px 20px;
-  background-color: var(--link-hover2-blue);
+  background-color: var(--color-sky-blue);
   color: white;
   font-weight: 500;
   cursor: pointer;
   border-radius: 50%;
-  box-shadow: 5px 5px 0px rgb(0, 186, 233);
+  box-shadow: 5px 5px 0px var(--color-indigo);
   margin-left: 8px;
 }
 .edit-btn:hover {
   transform: translate(3px, 3px);
-  background-color: var(--link-color11-green);
+  background-color: var(--color-ocean-blue);
   transition-duration: 0.3s;
   box-shadow: 2px 2px 0px rgba(43, 0, 0, 0.884);
 }
@@ -430,12 +449,12 @@ tr td:last-child {
   height: 40px;
   border: none;
   padding: 0px 20px;
-  background-color: var(--body-color-blue);
+  background-color: var(--color-sky-blue);
   color: white;
   font-weight: 500;
   cursor: pointer;
   border-radius: 50%;
-  box-shadow: 5px 5px 0px rgb(0, 186, 233);
+  box-shadow: 5px 5px 0px var(--color-indigo);
   transition-duration: 0.3s;
 }
 
@@ -461,10 +480,10 @@ tr td:last-child {
 }
 
 .Btn:hover {
-  background-color: var(--button-bg-color11-green);
+  background-color: var(--color-deep-blue);
   transform: translate(3px, 3px);
   transition-duration: 0.3s;
-  box-shadow: 2px 2px 0px rgb(0, 99, 33);
+  box-shadow: 2px 2px 0px var(--color-blue-light);
 }
 /* todo end btn edit ========================================= */
 /* ! responsive screen  ========================================= */
@@ -539,13 +558,13 @@ tr td:last-child {
   header h3 label {
     display: inline-block;
 
-    background: var(--body-color-blue);
+    background: var(--text-color);
     padding-right: 0rem;
     margin-right: 1rem;
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    color: var(--button-bg-color11-green);
+    color: var(--color-royal);
     display: flex;
     align-items: center;
     justify-content: center !important;

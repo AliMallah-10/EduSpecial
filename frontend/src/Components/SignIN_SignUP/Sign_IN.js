@@ -1,7 +1,11 @@
-// Sign_IN.js
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faLock,
+  faEyeSlash,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import { message } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +19,7 @@ function Sign_IN() {
   const [messages, setMessage] = useState("");
   const [forgetPasswordMode, setForgetPasswordMode] = useState(false);
   const [messagesforget, setMessageForget] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -28,19 +33,25 @@ function Sign_IN() {
       if (response.status === 200) {
         message.success(response.data.message);
 
-        // Store the access token and refresh token in local storage
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
+        const { accessToken, refreshToken, role } = response.data;
 
-        // Set Axios default headers to include the access token
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + response.data.accessToken;
+        // Set cookies for tokens
+        document.cookie = `accessToken=${accessToken}; path=/`;
+        document.cookie = `refreshToken=${refreshToken}; path=/`;
+        localStorage.setItem("role", role);
+        localStorage.setItem("email", response.data.email);
+        // Set axios default headers with the accessToken and refreshToken
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+        axios.defaults.headers.common["Refresh-Token"] = refreshToken;
 
         navigate("/AdminDash");
       } else if (response.status === 401) {
         setMessage(response.data.message);
         setTimeout(() => setMessage(""), 3000);
       }
+      return response.data;
     } catch (error) {
       setMessage(error.response.data.message);
       setTimeout(() => setMessage(""), 3000);
@@ -73,6 +84,12 @@ function Sign_IN() {
     setForgetPasswordMode(false);
   };
 
+  const togglePasswordVisibility = (field) => {
+    if (field === "password") {
+      setPasswordVisible(!passwordVisible);
+    }
+  };
+
   return (
     <body className="bodySign">
       <div>
@@ -96,13 +113,19 @@ function Sign_IN() {
             <div className="input-boxlog">
               <div className="input-field">
                 <input
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   placeholder="Password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <i>
                   <FontAwesomeIcon icon={faLock} />
+                </i>{" "}
+                <i onClick={() => togglePasswordVisibility("password")}>
+                  <FontAwesomeIcon
+                    icon={passwordVisible ? faEyeSlash : faEye}
+                    id="togglePasswordSignIN"
+                  />
                 </i>
               </div>
             </div>

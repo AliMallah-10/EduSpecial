@@ -62,7 +62,11 @@ exports.checkAdminRole = async (req, res, next) => {
 exports.checkResourceOwnership = async (req, res, next) => {
   const userId = req.user.id;
   const resourceId = req.params.id;
+  const { id } = req.body;
 
+  if (!id) {
+    return res.status(400).json({ error: "User ID is missing" });
+  }
   try {
     const user = await User.findById(userId);
 

@@ -48,6 +48,7 @@ router.post(
   userController.resetPassword
 );
 // Private routes (require token authentication)
+// ?verifyToken ---------------------------------------------------
 router.use(userMiddleware.verifyToken);
 // Logout route
 
@@ -60,14 +61,14 @@ router.get(
 );
 router.put(
   "/updateuserbyid/:id",
-  userMiddleware.checkAdminRole,
-  userMiddleware.checkResourceOwnership,
+  // userMiddleware.checkAdminRole,
+  // userMiddleware.checkResourceOwnership,
   userController.updateUserById
 );
 router.delete(
   "/deleteuserbyid/:id",
-  userMiddleware.checkResourceOwnership,
-  userMiddleware.checkAdminRole,
+  // userMiddleware.checkResourceOwnership,
+  // userMiddleware.checkAdminRole,
   userController.deleteUserById
 );
 
@@ -78,7 +79,7 @@ router.get(
 );
 router.put(
   "/updateuserbyemail/:email",
-  userMiddleware.checkResourceOwnership,
+  // userMiddleware.checkResourceOwnership,
   userController.updateUserByEmail
 );
 router.delete(
@@ -87,7 +88,7 @@ router.delete(
   userController.deleteUserByEmail
 );
 
-router.get("/users", userMiddleware.checkAdminRole, userController.getAllUsers);
+router.get("/Getusers", userController.getAllUsers);
 
 router.get(
   "/getuserbyfirstname/:firstname",
@@ -106,5 +107,6 @@ router.get(
   userMiddleware.validateShowVerifiedPage,
   userController.showVerifiedPage
 );
+router.post("/verify-password", userController.verifyPassword);
 
 module.exports = router;
