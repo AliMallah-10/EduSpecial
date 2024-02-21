@@ -35,6 +35,62 @@ function Mainpage() {
   const [description, setEditEventDescription] = useState("");
   const [imageevents, setEditEventImage] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [programs, setPrograms] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [donations, setDonations] = useState([]);
+
+  useEffect(() => {
+    fetchUsers();
+    fetchPrograms();
+    fetchCategories();
+    fetchDonations();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users/Getusers");
+      setUsers(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  const fetchPrograms = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/program/getAllprograms"
+      );
+      setPrograms(response.data);
+    } catch (error) {
+      console.error("Error fetching programs:", error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/category/allcategories"
+      );
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  const fetchDonations = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/donate/getalldonations"
+      );
+      setDonations(response.data);
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+    }
+  };
+
+  useEffect(() => {}, [donations]);
+
   // ! get team 000000000000000000000000000000000000000000000
   const fetchTeams = async () => {
     try {
@@ -343,7 +399,7 @@ function Mainpage() {
       <div className="cards">
         <div className="card-single">
           <div>
-            <h1>50</h1>
+            <h1>{users.length}</h1>
             <span>Customers</span>
           </div>
           <div>
@@ -354,7 +410,7 @@ function Mainpage() {
         </div>
         <div className="card-single">
           <div>
-            <h1>100</h1>
+            <h1>{programs.length}</h1>
             <span>Program</span>
           </div>
           <div>
@@ -365,7 +421,7 @@ function Mainpage() {
         </div>
         <div className="card-single">
           <div>
-            <h1>20</h1>
+            <h1>{donations.length}</h1>
             <span>Donations</span>
           </div>
           <div>
@@ -376,7 +432,7 @@ function Mainpage() {
         </div>
         <div className="card-single">
           <div>
-            <h1>25</h1>
+            <h1>{categories.length}</h1>
             <span>Category</span>
           </div>
           <div>
@@ -515,7 +571,7 @@ function Mainpage() {
               <div className="contadd">
                 <div className="form-row">
                   <img
-                    className="w-40 h-40 rounded-xl mt-10"
+                    className="w-8/12 h-64 rounded-xl mt-10"
                     src={`http://localhost:3000/uploads/${imageevents}`}
                     alt="Team Member"
                   />
@@ -721,9 +777,9 @@ function Mainpage() {
                   <span className="close" onClick={closeModal}>
                     &times;
                   </span>
-                
+
                   <div className="imgcontainer">
-                  <h1>Update Team</h1>
+                    <h1>Update Team</h1>
                     {/* Display the image */}
                     <img
                       className="w-40 h-40 rounded-xl mt-10"

@@ -154,7 +154,7 @@ function Sign_UP() {
             <p>
               Already have an account?
               <Link to="/signin" className="link">
-                Go to Login
+                 <span> Go to Login</span>
               </Link>
             </p>
           </label>

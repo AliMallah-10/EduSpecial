@@ -1,24 +1,23 @@
-.loadProtect {
+.bodyProtect {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  /* height: 100%; */
-  height: 100vh; /* Set height to full viewport height */
-  background: #ff0808; /* Set background color */
+  align-items: center;
+  justify-content: center;
   margin: auto;
+  text-align: center;
+  background: #0300a0;
+  height: 100vh;
 }
-
 .spinnerP {
   position: absolute;
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
 }
 
 .spinnerP div {
   position: absolute;
-  width: 50%;
-  height: 150%;
-  background: var(--button-bg-color11-green);
+  width: 60%;
+  height: 180%;
+  background: rgb(255, 255, 255);
   transform: rotate(calc(var(--rotation) * 1deg))
     translate(0, calc(var(--translation) * 1%));
   animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
@@ -103,9 +102,4 @@
     transform: rotate(calc(var(--rotation) * 1deg))
       translate(0, calc(var(--translation) * 1.5%));
   }
-}
-.bodyProtect {
-  margin: auto;
-  text-align: center;
-  background-color: #00ff55;
 }

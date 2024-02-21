@@ -23,15 +23,22 @@ const createRegistration = async (req, res) => {
 const getAllRegistrations = async (req, res) => {
   try {
     const registrations = await Registration.find()
-      .populate("user", "firstname lastname")
+      .populate("user", "firstname lastname email")
       .populate("program", "name");
 
     const formattedRegistrations = registrations.map((registration) => {
+      // Check if registration.user exists before accessing its properties
+      const userName = registration.user
+        ? `${registration.user.firstname} ${registration.user.lastname}`
+        : "Unknown";
+      const email = registration.user ? registration.user.email : "Unknown";
+
       return {
         _id: registration._id,
         registrationDate: registration.createdAt,
-        userName: `${registration.user.firstname} ${registration.user.lastname}`,
+        userName: userName,
         programName: registration.program.name,
+        email: email,
         UpdateAt: registration.updatedAt,
       };
     });
@@ -49,22 +56,27 @@ const getRegistrationById = async (req, res) => {
     const registrationId = req.params.id;
 
     const registration = await Registration.findById(registrationId)
-      .populate("user", "firstname lastname")
+      .populate("user", "firstname lastname email") // Make sure email is included here
       .populate("program", "name");
 
     if (!registration) {
       return res.status(404).json({ message: "Registration not found" });
     }
 
+    // Debugging: Check if email field exists in the populated user object
+    console.log("Populated user:", registration.user);
+
     // Concatenate first name and last name
     const fullName = `${registration.user.firstname} ${registration.user.lastname}`;
+    const email = registration.user.email;
 
     // Include the concatenated name and timestamp in the response
     const response = {
       _id: registration._id,
-      registrationDate: registration.createdAt,
       userName: fullName,
+      userEmail: email,
       programName: registration.program.name,
+      registrationDate: registration.createdAt,
       UpdateAt: registration.updatedAt,
     };
 
@@ -84,9 +96,9 @@ const updateRegistrationById = async (req, res) => {
     const userExists = await User.exists({ _id: userId });
     const programExists = await Program.exists({ _id: programId });
 
-    if (!userExists || !programExists) {
-      return res.status(404).json({ message: "User or Program not found" });
-    }
+    // if (!userExists || !programExists) {
+    //   return res.status(404).json({ message: "User or Program not found" });
+    // }
 
     const updatedRegistration = await Registration.findByIdAndUpdate(
       registrationId,
@@ -193,7 +205,7 @@ const getRegistrationsByUserName = async (req, res) => {
 
     if (filteredRegistrations.length === 0) {
       return res.status(404).json({
-        message: "No registrations found for the user"
+        message: "No registrations found for the user",
       });
     }
 
@@ -201,30 +213,24 @@ const getRegistrationsByUserName = async (req, res) => {
     const formattedRegistrations = filteredRegistrations.map(
       (registration) => ({
         _id: registration._id,
-        registrationDate: registration.createdAt.toLocaleString(
-          "en-US",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          }
-        ),
+        registrationDate: registration.createdAt.toLocaleString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
         userName: `${registration.user.firstname} ${registration.user.lastname}`,
         programName: registration.program.name,
-        UpdateAt: registration.updatedAt.toLocaleString(
-          "en-US",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          }
-        ),
+        UpdateAt: registration.updatedAt.toLocaleString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
       })
     );
 

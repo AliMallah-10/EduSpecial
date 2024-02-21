@@ -1,77 +1,96 @@
-/* NotFound.css */
+:root {
+  --color-blue-dark: #0F42B6;
+  --color-blue-light: #074CEA;
+  --color-navy: #193167;
+  --color-charcoal: #111B30;
+  --color-black: #0B0E16;
+  --color-indigo: #1D216B;
+  --color-royal: #0914EB;
+  --color-sapphire: #151DBB;
+  --color-midnight: #131532;
+  --color-onyx: #0B0C17;
+  --color-sky: #074BEA;
+  --color-slate: #153F64;
+  --color-cerulean: #047CE8;
+  --color-cobalt: #0A62B1;
+  --color-steel: #10202F;
+  --color-jet: #0A1015;
+  --color-deep-blue: #032F95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153B;
+  --color-ocean-blue: #02598D;
+  --color-cerulean-blue: #0080CC;
+  --color-sky-blue: #007CC6;
+  --color-navy-blue: #033C5D;
+}
 
-.fgg{
-  /* width: 100%; */
-  /* height: 100%; */
-
-  /* Add your background pattern here */
-  background: lightblue ;
+.fgg {
   background: radial-gradient(
       circle,
-      rgb(170, 162, 162),
-      #333 30%,
+      var(--color-slate), /* Use slate color from root */
+      var(--color-charcoal) 30%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0.226) 0%
     ),
     radial-gradient(
       circle at 40px 40px,
-      rgb(233, 228, 228),
-      #333 30%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 30%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 600px 200px,
-      rgb(233, 228, 228),
-      #333 10%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 10%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 800px 100px,
-      rgb(233, 228, 228),
-      #333 10%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 10%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 700px 500px,
-      rgb(233, 228, 228),
-      #333 2%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 2%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0.123) 0%
     ),
     radial-gradient(
       circle at 200px 400px,
-      rgb(233, 228, 228),
-      #333 1%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 1%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 300px 700px,
-      rgb(233, 228, 228),
-      #333 15%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 15%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 900px 500px,
-      rgb(233, 228, 228),
-      #333 20%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 20%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 650px 400px,
-      rgb(233, 228, 228),
-      #333 10%,
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-charcoal) 10%, /* Use charcoal color from root */
       rgba(88, 84, 84, 0) 0%
     ),
     radial-gradient(
       circle at 600px 600px,
-      rgb(233, 228, 228),
-      #333 1%,
-      rgba(88, 84, 84, 0.959) 0%
+      var(--color-cobalt), /* Use cobalt color from root */
+      var(--color-cerulean) 0%
     );
+   
 }
 
 
 .btnBAck {
-  --color1: #1a8516;
-  --color2: #236b19;
+  --color1: var(--color-blue-dark); /* Using blue-dark as the first color */
+  --color2: var(--color-navy-blue); /* Using navy-blue as the second color */
   perspective: 1000px;
   padding: 1em 1em;
   background: linear-gradient(var(--color1), var(--color2));

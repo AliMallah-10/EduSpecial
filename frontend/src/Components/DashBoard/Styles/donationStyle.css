@@ -57,7 +57,7 @@
   background-clip: padding-box;
 }
 .crdDonate {
-  border-radius: 79px;
+  border-radius: 50px;
   background: var(--color-midnight-blue-2);
   box-shadow: 3px 3px 6px var(--color-midnight-blue-2), -3px -3px 66px var(--color-indigo);
 }

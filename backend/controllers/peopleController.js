@@ -3,7 +3,7 @@ const People = require("../models/people");
 // Create a new person
 const createPerson = async (req, res) => {
   try {
-    const { name, age, gender, skills, phone,talent, address, specialNeeds } =
+    const { name, age, gender, skills, phone, talent, address, specialNeeds } =
       req.body;
 
     const person = new People({
@@ -61,7 +61,21 @@ const getPersonById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// Get people by talent ID
+const getPeopleByTalentId = async (req, res) => {
+  try {
+    const talentId = req.params.talentId;
+    const people = await People.find({ talent: talentId });
+    if (!people || people.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No people found for this talent ID" });
+    }
+    res.status(200).json(people);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 // Update person by ID
 const updatePersonById = async (req, res) => {
   try {
@@ -119,4 +133,5 @@ module.exports = {
   deletePersonById,
   deletePersonByName,
   getPersonByName,
+  getPeopleByTalentId,
 };

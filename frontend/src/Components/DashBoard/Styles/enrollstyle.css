@@ -1,0 +1,147 @@
+:root {
+  --color-blue-dark: #0f42b6;
+  --color-blue-light: #074cea;
+  --color-navy: #193167;
+  --color-charcoal: #111b30;
+  --color-black: #0b0e16;
+  --color-indigo: #1d216b;
+  --color-royal: #0914eb;
+  --color-sapphire: #151dbb;
+  --color-midnight: #131532;
+  --color-onyx: #0b0c17;
+  --color-sky: #074bea;
+  --color-slate: #153f64;
+  --color-cerulean: #047ce8;
+  --color-cobalt: #0a62b1;
+  --color-steel: #10202f;
+  --color-jet: #0a1015;
+  --color-deep-blue: #032f95;
+  --color-midnight-blue: #062262;
+  --color-dark-indigo: #05153b;
+  --color-ocean-blue: #02598d;
+  --color-cerulean-blue: #0080cc;
+  --color-sky-blue: #007cc6;
+  --color-navy-blue: #033c5d;
+  --color-navy: #022438;
+  --color-midnight-blue-2: #062262;
+  --color-blue: #003fd0;
+  --color-blue-2: #003dcb;
+  --baby-blue: #00e2e2;
+  --text-color: white;
+  --accent-color: rgb(214, 68, 98);
+  --color-burgundy: #7a0006;
+  --color-crimson: #a10008;
+  --color-maroon: #450003;
+  --color-scarlet: #a50008;
+  --baby-blue2: rgb(32, 86, 212);
+}
+/* Apply background color and hover effect to select dropdown */
+
+
+/* Apply background color on hover for options */
+.react-select-option:hover {
+  background-color: #0055ff; /* Set background color on hover */
+}
+
+.loadS {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%; /* Set height to fill parent container */
+}
+.spinner {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+}
+
+.spinner div {
+  position: absolute;
+  width: 50%;
+  height: 150%;
+  background: var(--color-cerulean-blue);
+  transform: rotate(calc(var(--rotation) * 1deg))
+    translate(0, calc(var(--translation) * 1%));
+  animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+}
+
+.spinner div:nth-child(1) {
+  --delay: 0.1;
+  --rotation: 36;
+  --translation: 150;
+}
+
+.spinner div:nth-child(2) {
+  --delay: 0.2;
+  --rotation: 72;
+  --translation: 150;
+}
+
+.spinner div:nth-child(3) {
+  --delay: 0.3;
+  --rotation: 108;
+  --translation: 150;
+}
+
+.spinner div:nth-child(4) {
+  --delay: 0.4;
+  --rotation: 144;
+  --translation: 150;
+}
+
+.spinner div:nth-child(5) {
+  --delay: 0.5;
+  --rotation: 180;
+  --translation: 150;
+}
+
+.spinner div:nth-child(6) {
+  --delay: 0.6;
+  --rotation: 216;
+  --translation: 150;
+}
+
+.spinner div:nth-child(7) {
+  --delay: 0.7;
+  --rotation: 252;
+  --translation: 150;
+}
+
+.spinner div:nth-child(8) {
+  --delay: 0.8;
+  --rotation: 288;
+  --translation: 150;
+}
+
+.spinner div:nth-child(9) {
+  --delay: 0.9;
+  --rotation: 324;
+  --translation: 150;
+}
+
+.spinner div:nth-child(10) {
+  --delay: 1;
+  --rotation: 360;
+  --translation: 150;
+}
+
+@keyframes spinner-fzua35 {
+  0%,
+  10%,
+  20%,
+  30%,
+  50%,
+  60%,
+  70%,
+  80%,
+  90%,
+  100% {
+    transform: rotate(calc(var(--rotation) * 1deg))
+      translate(0, calc(var(--translation) * 1%));
+  }
+
+  50% {
+    transform: rotate(calc(var(--rotation) * 1deg))
+      translate(0, calc(var(--translation) * 1.5%));
+  }
+}

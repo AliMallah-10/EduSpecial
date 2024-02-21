@@ -96,16 +96,21 @@ function ProgramPage() {
     const selectedCategory = categories.find(
       (category) => category._id === categoryId
     );
+    // Calculate the count of programs related to the selected category
+    const programCount = programs.filter(
+      (program) => program.category === categoryId
+    ).length;
     // Populate the form fields with the selected category's details
     if (selectedCategory) {
       setNewCategory({
         ...newCategory,
         name: selectedCategory.name,
-        count: selectedCategory.count,
+        count: programCount, // Update count based on selected category's programs
         description: selectedCategory.description,
       });
     }
   };
+
   //? Function to handle updating a category ----=================================
   const handleUpdateCategory = async (e) => {
     e.preventDefault();
@@ -419,7 +424,7 @@ function ProgramPage() {
           {/* Option for displaying all programs */}
           <li onClick={handleAllProgramsClick}>
             <Link>
-              <span>All Programs</span>
+              <span>All Category</span>
             </Link>
           </li>
           {/* Display categories */}
@@ -477,7 +482,7 @@ function ProgramPage() {
       </div>
       <div className="dropdown">
         <button className="dropbtn" onClick={handleAllProgramsClick}>
-          All Programs
+          All Categorys
         </button>
         <div className="dropdown-content">
           {/* Option for displaying all programs */}
@@ -520,13 +525,15 @@ function ProgramPage() {
                 key={program._id}
                 className="relative flex w-80 flex-col rounded-xl bg-blue-600 bg-clip-border text-white shadow-md"
               >
-                <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+                <div className="relative mx-4 -mt-6 h-64 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
                   <img
                     src={`http://localhost:3000/uploads/${program.image}`}
                     alt={program.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-fill object-cover"
+                   
                   />
                 </div>
+
                 <div className="p-6">
                   <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                     {program.name}
@@ -564,7 +571,7 @@ function ProgramPage() {
               <p className="title">Update Program</p>
               <p className="message">Update the Program details below.</p>
               <img
-                className="w-75 h-60 rounded-xl mt-7"
+                className="w-8/12 h-80 rounded-xl mt-7"
                 src={`http://localhost:3000/uploads/${formData.image}`}
                 alt={formData.name}
               />

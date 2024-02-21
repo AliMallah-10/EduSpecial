@@ -45,8 +45,11 @@ function Sign_IN() {
           "Authorization"
         ] = `Bearer ${accessToken}`;
         axios.defaults.headers.common["Refresh-Token"] = refreshToken;
-
-        navigate("/AdminDash");
+        if (response.data.role === "admin") {
+          navigate("/AdminDash/mainPage");
+        } else {
+          navigate("/Home");
+        }
       } else if (response.status === 401) {
         setMessage(response.data.message);
         setTimeout(() => setMessage(""), 3000);
@@ -147,7 +150,7 @@ function Sign_IN() {
               <p>
                 Don't have an account?
                 <Link to="/signup" className="link">
-                  <span>Go to SignUP</span>
+                  <span> Go to SignUP</span>
                 </Link>
               </p>
             </label>

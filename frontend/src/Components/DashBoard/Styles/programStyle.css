@@ -60,41 +60,41 @@
   align-items: center;
   text-align: center;
 }
-.listPN i{
-color: white;
-font-size: 20px;
-margin-right: 10px;
-border: 2px solid  #fff;
-padding: 8px;
-border-radius: 6px;
+.listPN i {
+  color: white;
+  font-size: 20px;
+  margin-right: 10px;
+  border: 2px solid #fff;
+  padding: 8px;
+  border-radius: 6px;
 }
-.listPN .trashbtn:hover{
-color: var(--text-color);
-background-color: var(--color-dark-indigo);
+.listPN .trashbtn:hover {
+  color: var(--text-color);
+  background-color: var(--color-dark-indigo);
 }
-.listPN .plus:hover{
-color: var(--text-color);
-background-color: var(--color-deep-blue);
+.listPN .plus:hover {
+  color: var(--text-color);
+  background-color: var(--color-deep-blue);
 }
-.listPNSmall{
+.listPNSmall {
   display: none;
   /* margin-left: 15px; */
 }
-.listPNSmall i{
+.listPNSmall i {
   color: white;
-font-size: 20px;
-margin-right: 10px;
-border: 2px solid  #fff;
-padding: 8px;
-border-radius: 6px;
+  font-size: 20px;
+  margin-right: 10px;
+  border: 2px solid #fff;
+  padding: 8px;
+  border-radius: 6px;
 }
-.listPNSmall .trashbtn:hover{
-color: var(--text-color);
-background-color: var(--color-dark-indigo);
+.listPNSmall .trashbtn:hover {
+  color: var(--text-color);
+  background-color: var(--color-dark-indigo);
 }
-.listPNSmall .plus:hover{
-color: var(--text-color);
-background-color: var(--color-deep-blue);
+.listPNSmall .plus:hover {
+  color: var(--text-color);
+  background-color: var(--color-deep-blue);
 }
 /* ! menu= ============================================================= */
 .menuC li span {
@@ -169,7 +169,6 @@ background-color: var(--color-deep-blue);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-
 }
 
 .dropdown-content a {
@@ -189,7 +188,7 @@ background-color: var(--color-deep-blue);
 }
 
 .dropdown:hover .dropbtn {
-  background-color:var(--color-blue-2);
+  background-color: var(--color-blue-2);
 }
 @media only screen and (max-width: 730px) {
   .menuC {
@@ -198,11 +197,11 @@ background-color: var(--color-deep-blue);
   .dropbtn {
     display: block;
   }
-  .listPNSmall{
-  display: block;
-  margin-bottom: 25px;
-  /* margin-left: 15px; */
-}
+  .listPNSmall {
+    display: block;
+    margin-bottom: 25px;
+    /* margin-left: 15px; */
+  }
 }
 /* ! model program ------------------------------ */
 /* The Modal (background) */
@@ -241,7 +240,6 @@ background-color: var(--color-deep-blue);
   width: 50%; /* Could be more or less, depending on screen size */
   border-radius: 30px;
   text-align: center;
-  
 }
 /* ! inputs add form --------------------------- */
 
@@ -357,10 +355,11 @@ background-color: var(--color-deep-blue);
   min-width: 210px !important;
 }
 .formProgram label select option {
-  background-color: var(--link-hover2-blue);
+  background-color: var(--color-sky-blue) !important;
+  color: white !important;
 }
 .formProgram label select option:checked {
-  background-color: var(--link-hover1-blue);
+  background-color: var(--color-ocean-blue) !important;
 }
 .submit,
 .Cancelbtn {
@@ -389,7 +388,7 @@ background-color: var(--color-deep-blue);
   justify-content: space-between;
 }
 
-#subD{
+#subD {
   margin-left: 18px;
   background-color: brown;
 }
@@ -441,6 +440,3 @@ background-color: var(--color-deep-blue);
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em var(--color-cerulean-blue);
 }
-
-
-

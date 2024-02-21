@@ -31,6 +31,25 @@ function UsersPage() {
     password: "",
     confirmPassword: "", // Add confirmPassword field
   });
+  // ! Fetch all users on Search -----------------------------------------
+  // const [filteredUsers, setFilteredUsers] = useState([]);
+
+  // useEffect(() => {
+  //   // Fetch users data from API
+  //   axios
+  //     .get("http://localhost:3000/users/Getusers")
+  //     .then((response) => {
+  //       const filtered = response.data.filter((user) =>
+  //         user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  //       );
+  //       setFilteredUsers(filtered);
+
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching users:", error);
+  //     });
+  // }, [searchQuery]);
+  // !  Show Result search -------------------------------------------------
   const handleAddUserClick = () => {
     setShowAddForm(true);
     setShowUpdateForm(false);
@@ -249,9 +268,7 @@ function UsersPage() {
                 testUsers.map((user, index) => (
                   <tr
                     key={user._id}
-                    className={
-                      index % 2 === 0 ? "bg-blue-500" : "bg-blue-400"
-                    }
+                    className={index % 2 === 0 ? "bg-blue-500" : "bg-blue-400"}
                   >
                     {/* <td className="py-5 px-4 border-b">{index + 1}</td> */}
                     <td className="py-5 px-4 border-b">{user._id}</td>

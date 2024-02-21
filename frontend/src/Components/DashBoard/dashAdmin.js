@@ -14,6 +14,7 @@ import {
   faList,
   faAngleDown,
   faBell,
+  faRegistered,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./Styles/dashStyle.css";
@@ -21,7 +22,11 @@ import "./Styles/FormDashStyle.css";
 // import { message } from "antd";
 function DashAdmin() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
   useEffect(() => {
     const handleClick = (event) => {
       // Check if the click is outside the dropdown
@@ -106,16 +111,7 @@ function DashAdmin() {
         </div>
         <div className="sidebar-menu">
           <ul>
-            <li>
-              <Link to="/AdminDash/mainPage">
-                <a href="dd" className="active">
-                  <span>
-                    <FontAwesomeIcon icon={faChartLine} />
-                  </span>
-                  <span>Dashboard</span>
-                </a>
-              </Link>
-            </li>
+            {" "}
             <li>
               <Link to="/signin">
                 <a href="dd">
@@ -123,6 +119,16 @@ function DashAdmin() {
                     <FontAwesomeIcon icon={faHouse} />
                   </span>
                   <span>Home</span>
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link to="/AdminDash/mainPage">
+                <a href="dd" className="active">
+                  <span>
+                    <FontAwesomeIcon icon={faChartLine} />
+                  </span>
+                  <span>Dashboard</span>
                 </a>
               </Link>
             </li>
@@ -156,6 +162,16 @@ function DashAdmin() {
                 </a>
               </Link>
             </li>
+            <li>
+              <Link to="/AdminDash/enrollPage">
+                <a href="d">
+                  <span>
+                    <FontAwesomeIcon icon={faRegistered} />
+                  </span>
+                  <span>Enrollment</span>
+                </a>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -170,7 +186,13 @@ function DashAdmin() {
             Dashboard
           </h3>
           <div className="search-wrapper">
-            <input type="search" placeholder="Search ..." name="search" />
+            <input
+              type="search"
+              placeholder="Search ..."
+              name="search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
             <span>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </span>

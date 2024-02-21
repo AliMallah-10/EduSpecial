@@ -14,10 +14,13 @@ import ProgramPage from "./Pages/dashboard_Pages/ProgramNamePage";
 import DonationPage from "./Pages/dashboard_Pages/DonationPage";
 import NotFound from "./Pages/NotFound";
 import ProtectedRoute from "./Data/ProtectRoute";
+import EnrollPage from "./Pages/dashboard_Pages/EnrollPage";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Default Route: Redirect to SignIN page */}
+        <Route path="/" element={<SignIN />} />
         {/* Route for SignIN component */}
         <Route path="/signin" element={<SignIN />} />
         {/* Route for SignIN component */}
@@ -29,7 +32,6 @@ function App() {
         <Route path="/emailVerify" element={<VerifPage />} />
         {/* Route for SignUP component */}
         <Route path="/signup" element={<SignUP />} />
-        {/* Route for DashAdmin component */}
 
         {/* Use ProtectedRoute for DashAdmin component */}
 
@@ -46,6 +48,7 @@ function App() {
           <Route path="profilePage" element={<ProfilePage />} />
           <Route path="programPage" element={<ProgramPage />} />
           <Route path="donationPage" element={<DonationPage />} />
+          <Route path="enrollPage" element={<EnrollPage />} />
         </Route>
 
         {/* Route for any unknown URLs */}

@@ -42,4 +42,9 @@ router.delete(
   userMiddleware.checkAdminRole,
   peopleController.deletePersonByName
 );
+// Route to get people by talent ID
+router.get(
+  "/getpeoplebytalent/:talentId",
+  peopleController.getPeopleByTalentId
+);
 module.exports = router;

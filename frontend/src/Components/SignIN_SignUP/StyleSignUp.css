@@ -92,10 +92,10 @@ select {
 }
 .input-box .input-field select option {
   color: rgb(255, 255, 255);
-  background-color: rgb(55, 182, 123);
+  background-color: var(--color-sky-blue);
 }
 .input-box .input-field select option:checked {
-  background-color: rgba(0, 152, 163, 0.89);
+  background-color: var(--color-ocean-blue);
 }
 .input-box .input-field input::placeholder {
   color: white;
@@ -141,5 +141,5 @@ select {
   }
 }
 #messageSignUP {
-  color: rgb(45, 136, 131);
+  color: rgb(255, 255, 255);
 }

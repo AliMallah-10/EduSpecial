@@ -6,11 +6,11 @@ const {
 const RegistrationController = require("../controllers/registerProgramController");
 const userMiddleware = require("../middlewares/usermiddleware");
 // Private routes (require token authentication)
-router.use(userMiddleware.verifyToken);
+// router.use(userMiddleware.verifyToken);
 
 // Create a new registration
 router.post(
-  "/registrations",
+  "/ADDregistrations",
   validateRegistration,
   RegistrationController.createRegistration
 );
@@ -18,7 +18,7 @@ router.post(
 // Get all registrations
 router.get(
   "/registrations",
-  userMiddleware.checkAdminRole,
+  // userMiddleware.checkAdminRole,
   RegistrationController.getAllRegistrations
 );
 
@@ -42,16 +42,16 @@ router.get(
 // Update registration by ID
 router.put(
   "/updateregistrations/:id",
-  validateRegistration,
-  userMiddleware.checkAdminRole,
+
+  // userMiddleware.checkAdminRole,
   RegistrationController.updateRegistrationById
 );
 
 // Delete registration by ID
 router.delete(
   "/deleteregistrations/:id",
-  userMiddleware.checkAdminRole,
+  // userMiddleware.checkAdminRole,
   RegistrationController.deleteRegistrationById
 );
-router.use(userMiddleware.checkAdminRole);
+
 module.exports = router;

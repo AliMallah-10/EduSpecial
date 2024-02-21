@@ -159,7 +159,7 @@ header label span {
   display: inline-block;
   padding: 0rem 0.5rem;
   font-size: 1.2rem;
-  color: white;
+  color: black;
 }
 .search-wrapper input {
   height: 100%;

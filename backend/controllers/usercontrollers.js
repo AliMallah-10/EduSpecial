@@ -27,7 +27,7 @@ transporter.verify((error, success) => {
   }
 });
 //===================== NodeMailer Ends ===============================================================
-exports.verifyPassword= async (req, res) => {
+exports.verifyPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -366,6 +366,7 @@ exports.Payments = async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: req.body.items.map((item) => {
+        const currentUrl = `${req.protocol}://${req.headers.host}${req.originalUrl}`;
         return {
           price_data: {
             currency: "usd", // Change to the appropriate currency code
@@ -377,8 +378,8 @@ exports.Payments = async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: "http://localhost:3000/users/login",
-      cancel_url: "http://localhost:3000/",
+      success_url: "http://localhost:3001/home",
+      cancel_url: "http://localhost:3001/",
     });
     res.json({ url: session.url });
   } catch (error) {
@@ -533,6 +534,7 @@ exports.loginUser = async (req, res) => {
       sameSite: "Lax", // Adjust as needed
     });
     res.header("Authorization", "Bearer " + accessToken);
+
     res.status(200).json({
       message: "Login successfully",
       accessToken,

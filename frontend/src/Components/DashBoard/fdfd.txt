@@ -294,3 +294,56 @@ const updateAccessTokenAndRefreshTokenInCookie = (
 };
 
 export default ProtectedRoute;
+--------=============================================================================================
+   <tbody>
+              {testUsers && testUsers.length > 0 ? (
+                testUsers.map((user, index) => (
+                  <tr
+                    key={user._id}
+                    className={
+                      index % 2 === 0 ? "bg-blue-500" : "bg-blue-400"
+                    }
+                  >
+                    {/* <td className="py-5 px-4 border-b">{index + 1}</td> */}
+                    <td className="py-5 px-4 border-b text-white">{user._id}</td>
+                    <td className="py-5 px-2 border-b text-white">{user.role}</td>
+                    <td className="py-2 px-2 border-b text-white">{user.firstname}</td>
+                    <td className="py-2 px-2 border-b text-white">{user.lastname}</td>
+                    <td className="py-2 px-2 border-b text-white">{user.bloodType}</td>
+                    <td className="py-5 px-2 border-b text-white">{user.email}</td>
+                    <td className="py-2 px-2 border-b text-white">
+                      {formatDateTime(user.updatedAt)}
+                    </td>
+                    <td className="py-2 px-6 border-b">
+                      <button
+                        className="Updatebtn"
+                        onClick={() => handleUpdateClick(user)}
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                      <button
+                        className="DeleteBtn"
+                        onClick={() => handleDeleteClick(user._id)}
+                      >
+                        <FontAwesomeIcon icon={faXmark} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8 m-auto">No users found</td>
+                </tr>
+              )}
+            </tbody>
+            ------===========================================================================
+              const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: 'transparent', // Change background color
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'white' : 'black', // Change text color
+    }),
+  };
